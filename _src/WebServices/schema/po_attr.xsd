@@ -1,0 +1,38 @@
+<?xml version='1.0'?>
+<schema targetNamespace="http://localhost/WebServices/schema/po/"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:types1="http://localhost/WebServices/schema/po/">
+  <element name="purchaseOrder">
+   <complexType>
+     <sequence>
+       <element name="pono" type="string" /> 
+       <element name="shipTo" type="types1:AddressType" /> 
+       <element name="billTo" type="types1:AddressType"/>
+       <element name="items" type="types1:LineItemsType"/>
+     </sequence> 
+   </complexType>
+  </element> 
+  <complexType name="AddressType">
+   <sequence>
+    <element name="name" type="string"/>
+    <element name="street" type="string"/>
+    <element name="city" type="string"/>
+    <element name="state" type="string"/>
+    <element name="zip" type="int"/>
+    <element name="country" type="NMTOKEN" />
+   </sequence>
+  </complexType>
+  <complexType name="LineItemsType">
+   <sequence>
+    <element minOccurs="0" maxOccurs="unbounded" name="item" type="types1:LineItemType" />
+   </sequence>
+  </complexType>
+  <complexType name="LineItemType">
+    <sequence>
+      <element name="partId" type="int"/>
+      <element name="quantity" type="decimal"/>
+      <element name="price" type="decimal"/>
+    </sequence>
+    <attribute name="id" type="int"/>
+  </complexType>
+</schema >

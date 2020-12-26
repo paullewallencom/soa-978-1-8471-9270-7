@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="hello"
+         xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" 
+         xmlns:lns="http://localhost:8081/active-bpel/services/hello" 
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         suppressJoinFailure="yes"
+         targetNamespace="http://hello">
+   <partnerLinks>
+      <partnerLink myRole="helloServiceRole" name="customer" partnerLinkType="lns:helloPartnerLinkType"/>
+   </partnerLinks>
+   <variables>
+      <variable messageType="lns:inputMessage" name="inputMessage"/>
+      <variable messageType="lns:outputMessage" name="outputMessage"/>
+   </variables>
+   <sequence>
+      <receive createInstance="yes" 
+               operation="hello"
+               partnerLink="customer" 
+               portType="lns:helloServicePT"
+               variable="inputMessage"/>
+      <assign>
+         <copy>
+            <from expression="concat( 'Hello, ', bpws:getVariableData('inputMessage', 'firstName'),'!' )"/>
+            <to part="hello" variable="outputMessage"/>
+         </copy>
+      </assign>
+      <reply operation="hello" 
+             partnerLink="customer"
+             portType="lns:helloServicePT"
+             variable="outputMessage"/>
+   </sequence>
+</process>

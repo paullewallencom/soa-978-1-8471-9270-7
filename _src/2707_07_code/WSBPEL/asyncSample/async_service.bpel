@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BPEL Process Definition
+Edited using ActiveBPEL(tm) Designer Version 3.0.0 (http://www.active-endpoints.com)
+-->
+<bpel:process xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://localhost:8081/active-bpel/services/async_service.wsdl" xmlns:ns2="http://localhost:8081/active-bpel/services/async_called_service.wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="async_service" suppressJoinFailure="yes" targetNamespace="http://async_service">
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="async_service.wsdl" namespace="http://localhost:8081/active-bpel/services/async_service.wsdl"/>
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="async_called_service.wsdl" namespace="http://localhost:8081/active-bpel/services/async_called_service.wsdl"/>
+   <bpel:partnerLinks>
+      <bpel:partnerLink myRole="AsyncCallerRole" name="AsyncCallerPLT" partnerLinkType="ns1:AsyncCallerPLT"/>
+      <bpel:partnerLink myRole="asyncReplyReceiver" name="asyncRequester" partnerLinkType="ns1:asyncRequester" partnerRole="asyncProvider"/>
+   </bpel:partnerLinks>
+   <bpel:variables>
+      <bpel:variable messageType="ns1:asyncRequestMessage" name="asyncRequestMessage"/>
+      <bpel:variable messageType="ns1:asyncResponseMessage" name="asyncResponseMessage"/>
+      <bpel:variable messageType="ns2:initiateRequestMessage" name="initiateRequestMessage"/>
+   </bpel:variables>
+   <bpel:correlationSets>
+      <bpel:correlationSet name="CS1" properties="ns1:asyncCorrelationData"/>
+   </bpel:correlationSets>
+   <bpel:sequence>
+      <bpel:receive createInstance="yes" operation="echo" partnerLink="AsyncCallerPLT" portType="ns1:AsyncCallerPT" variable="asyncRequestMessage"/>
+      <bpel:assign>
+         <bpel:copy>
+            <bpel:from part="payload" variable="asyncRequestMessage"/>
+            <bpel:to part="payload" variable="initiateRequestMessage"/>
+         </bpel:copy>
+      </bpel:assign>
+      <bpel:invoke inputVariable="initiateRequestMessage" operation="initiateAsync" partnerLink="asyncRequester" portType="ns2:AsyncCalledServicePT">
+         <bpel:correlations>
+            <bpel:correlation initiate="yes" pattern="request" set="CS1"/>
+         </bpel:correlations>
+      </bpel:invoke>
+      <bpel:receive operation="onResult" partnerLink="asyncRequester" portType="ns1:asyncCallbackPT" variable="asyncResponseMessage">
+         <bpel:correlations>
+            <bpel:correlation initiate="no" set="CS1"/>
+         </bpel:correlations>
+      </bpel:receive>
+      <bpel:reply operation="echo" partnerLink="AsyncCallerPLT" portType="ns1:AsyncCallerPT" variable="asyncResponseMessage"/>
+   </bpel:sequence>
+</bpel:process>

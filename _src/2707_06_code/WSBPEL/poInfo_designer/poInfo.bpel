@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BPEL Process Definition
+Edited using ActiveBPEL(tm) Designer Version 3.0.0 (http://www.active-endpoints.com)
+-->
+<bpel:process xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://localhost:8081/active-bpel/services/poInfoService.wsdl" xmlns:ns2="http://localhost/WebServices/wsdl/poOrderDoc" xmlns:ns3="http://localhost/WebServices/wsdl/poOrderStatus" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="poInfo" suppressJoinFailure="yes" targetNamespace="http://poInfo">
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="wsdl/poInfo.wsdl" namespace="http://localhost:8081/active-bpel/services/poInfoService.wsdl"/>
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="http://localhost/WebServices/wsdl/po_orderdoc.wsdl" namespace="http://localhost/WebServices/wsdl/poOrderDoc"/>
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="http://localhost/WebServices/wsdl/po_orderstatus.wsdl" namespace="http://localhost/WebServices/wsdl/poOrderStatus"/>
+   <bpel:partnerLinks>
+      <bpel:partnerLink myRole="poInfoProviderRole" name="poInfoLT" partnerLinkType="ns1:poInfoLT"/>
+      <bpel:partnerLink name="poDocLT" partnerLinkType="ns1:poDocLT" partnerRole="poDocProviderRole"/>
+      <bpel:partnerLink name="poStatusLT" partnerLinkType="ns1:poStatusLT" partnerRole="poStatusProviderRole"/>
+   </bpel:partnerLinks>
+   <bpel:variables>
+      <bpel:variable messageType="ns1:poInfoRequestMessage" name="poInfoRequestMessage"/>
+      <bpel:variable messageType="ns1:poInfoResponseMessage" name="poInfoResponseMessage"/>
+      <bpel:variable messageType="ns2:getOrderDocInput" name="getOrderDocInput"/>
+      <bpel:variable messageType="ns2:getOrderDocOutput" name="getOrderDocOutput"/>
+      <bpel:variable messageType="ns3:getOrderStatusInput" name="getOrderStatusInput"/>
+      <bpel:variable messageType="ns3:getOrderStatusOutput" name="getOrderStatusOutput"/>
+   </bpel:variables>
+   <bpel:sequence>
+      <bpel:receive createInstance="yes" operation="getInfo" partnerLink="poInfoLT" portType="ns1:poInfoPT" variable="poInfoRequestMessage"/>
+      <bpel:if>
+         <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$poInfoRequestMessage.payload/ns1:par = 'doc'</bpel:condition>
+         <bpel:sequence>
+            <bpel:assign>
+               <bpel:copy>
+                  <bpel:from part="payload" variable="poInfoRequestMessage">
+                     <bpel:query>ns1:pono</bpel:query>
+                  </bpel:from>
+                  <bpel:to part="pono" variable="getOrderDocInput"/>
+               </bpel:copy>
+            </bpel:assign>
+            <bpel:invoke inputVariable="getOrderDocInput" operation="getOrderDoc" outputVariable="getOrderDocOutput" partnerLink="poDocLT" portType="ns2:poOrderDocServicePortType"/>
+            <bpel:assign>
+               <bpel:copy>
+                  <bpel:from part="doc" variable="getOrderDocOutput"/>
+                  <bpel:to part="payload" variable="poInfoResponseMessage"/>
+               </bpel:copy>
+            </bpel:assign>
+         </bpel:sequence>
+         <bpel:elseif>
+            <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$poInfoRequestMessage.payload/ns1:par = 'status'</bpel:condition>
+            <bpel:sequence>
+               <bpel:assign>
+                  <bpel:copy>
+                     <bpel:from part="payload" variable="poInfoRequestMessage">
+                        <bpel:query>ns1:pono</bpel:query>
+                     </bpel:from>
+                     <bpel:to part="pono" variable="getOrderStatusInput"/>
+                  </bpel:copy>
+               </bpel:assign>
+               <bpel:invoke inputVariable="getOrderStatusInput" operation="getOrderStatus" outputVariable="getOrderStatusOutput" partnerLink="poStatusLT" portType="ns3:poOrderStatusServicePortType"/>
+               <bpel:assign>
+                  <bpel:copy>
+                     <bpel:from part="status" variable="getOrderStatusOutput"/>
+                     <bpel:to part="payload" variable="poInfoResponseMessage"/>
+                  </bpel:copy>
+               </bpel:assign>
+            </bpel:sequence>
+         </bpel:elseif>
+         <bpel:else>
+            <bpel:assign>
+               <bpel:copy>
+                  <bpel:from>
+                     <bpel:literal>Wrong input parameter. Should be either doc or status!</bpel:literal>
+                  </bpel:from>
+                  <bpel:to part="payload" variable="poInfoResponseMessage"/>
+               </bpel:copy>
+            </bpel:assign>
+         </bpel:else>
+      </bpel:if>
+      <bpel:reply operation="getInfo" partnerLink="poInfoLT" portType="ns1:poInfoPT" variable="poInfoResponseMessage"/>
+   </bpel:sequence>
+</bpel:process>

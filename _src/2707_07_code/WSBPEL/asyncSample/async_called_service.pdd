@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process xmlns="http://schemas.active-endpoints.com/pdd/2006/08/pdd.xsd" xmlns:bpelns="http://async_called_service" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" location="asyncSample/async_called_service.bpel" name="bpelns:async_called_service">
+   <partnerLinks>
+      <partnerLink name="asyncRequester">
+         <partnerRole endpointReference="invoker"/>
+         <myRole allowedRoles="" binding="RPC" service="AsyncCalledServiceService"/>
+      </partnerLink>
+   </partnerLinks>
+   <references>
+      <wsdl location="project:/asyncSample/async_service.wsdl" namespace="http://localhost:8081/active-bpel/services/async_service.wsdl"/>
+      <wsdl location="project:/asyncSample/async_called_service.wsdl" namespace="http://localhost:8081/active-bpel/services/async_called_service.wsdl"/>
+   </references>
+</process>

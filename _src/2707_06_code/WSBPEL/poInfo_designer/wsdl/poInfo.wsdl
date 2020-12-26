@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="poInfo" 
+    targetNamespace="http://localhost:8081/active-bpel/services/poInfoService.wsdl"
+    xmlns:tns="http://localhost:8081/active-bpel/services/poInfoService.wsdl"
+    xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns2="http://localhost/WebServices/wsdl/poOrderDoc"
+    xmlns:ns3="http://localhost/WebServices/wsdl/poOrderStatus"
+    xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <import namespace="http://localhost/WebServices/wsdl/poOrderDoc"
+          location="http://localhost/WebServices/wsdl/po_orderdoc.wsdl"/>
+  <import namespace="http://localhost/WebServices/wsdl/poOrderStatus"
+          location="http://localhost/WebServices/wsdl/po_orderstatus.wsdl"/>
+
+  <types>
+    <schema attributeFormDefault="qualified"
+            elementFormDefault="qualified"
+            targetNamespace="http://localhost:8081/active-bpel/services/poInfoService.wsdl"
+            xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="poInfoRequest">
+        <complexType>
+          <sequence>
+            <element name="pono" type="xsd:string"/>
+            <element name="par" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+     </schema>
+  </types>
+  <message name="poInfoResponseMessage">
+    <part name="payload" type="xsd:string"/>
+  </message>
+  <message name="poInfoRequestMessage">
+    <part name="payload" element="tns:poInfoRequest"/>
+  </message>
+  <portType name="poInfoPT">
+    <operation name="getInfo">
+      <input message="tns:poInfoRequestMessage"/>
+      <output message="tns:poInfoResponseMessage"/>
+    </operation>
+  </portType>
+  <plnk:partnerLinkType name="poInfoLT">
+   <plnk:role name="poInfoProviderRole">
+      <plnk:portType name="tns:poInfoPT"/>
+   </plnk:role>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="poDocLT">
+   <plnk:role name="poDocProviderRole">
+      <plnk:portType name="ns2:poOrderDocServicePortType"/>
+   </plnk:role>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="poStatusLT">
+   <plnk:role name="poStatusProviderRole">
+      <plnk:portType name="ns3:poOrderStatusServicePortType"/>
+   </plnk:role>
+  </plnk:partnerLinkType>
+</definitions>

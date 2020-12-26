@@ -1,0 +1,10 @@
+<params>
+ <param>
+  <key>proc</key>
+  <value>getPOInfo</value>
+ </param>
+ <param>
+  <key>arg</key>
+  <value>doc</value>
+ </param>
+</params>

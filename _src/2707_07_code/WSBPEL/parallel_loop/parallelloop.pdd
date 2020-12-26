@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process xmlns="http://schemas.active-endpoints.com/pdd/2006/08/pdd.xsd" xmlns:bpelns="http://parallelloop" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" location="bpel/parallel_loop/parallelloop.bpel" name="bpelns:parallelloop">
+   <partnerLinks>
+      <partnerLink name="loopProcessLT">
+         <myRole allowedRoles="" binding="RPC" service="loopProcessService"/>
+      </partnerLink>
+      <partnerLink name="orderProcessingLT">
+         <partnerRole endpointReference="static" invokeHandler="default:Address">
+            <wsa:EndpointReference xmlns:s="http://localhost/WebServices/wsdl/orderProcessing">
+      <wsa:Address>http://localhost/WebServices/ch7/SoapServer_orderProcessing.php</wsa:Address>
+      <wsa:ServiceName PortName="orderProcessingServicePort">s:orderProcessingService</wsa:ServiceName>
+</wsa:EndpointReference>
+         </partnerRole>
+      </partnerLink>
+   </partnerLinks>
+   <references>
+      <wsdl location="http://localhost/WebServices/wsdl/orderProcessing.wsdl" namespace="http://localhost/WebServices/wsdl/orderProcessing"/>
+      <wsdl location="project:/parallel_loop/wsdl/parallelloop.wsdl" namespace="http://localhost:8081/active-bpel/services/parallel_loop"/>
+   </references>
+</process>

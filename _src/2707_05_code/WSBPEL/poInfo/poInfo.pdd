@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process xmlns="http://schemas.active-endpoints.com/pdd/2006/08/pdd.xsd" 
+ xmlns:bpelns="http://poInfo.bpel"
+ xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing"
+ location="bpel/poInfo.bpel"
+ name="bpelns:poInfo.bpel">
+   <partnerLinks>
+      <partnerLink name="poDocRequester">
+         <partnerRole endpointReference="static">
+            <wsa:EndpointReference xmlns:s="http://localhost/WebServices/wsdl/poOrderDoc">
+  <wsa:Address>http://localhost/WebServices/ch4/SoapServer_orderdoc.php</wsa:Address>
+  <wsa:ServiceName PortName="poOrderDocServicePort">s:poOrderDocService</wsa:ServiceName>
+</wsa:EndpointReference>
+         </partnerRole>
+      </partnerLink>
+      <partnerLink name="poStatusRequester">
+         <partnerRole endpointReference="static">
+            <wsa:EndpointReference xmlns:s="http://localhost/WebServices/wsdl/poOrderStatus">
+  <wsa:Address>http://localhost/WebServices/ch4/SoapServer_orderstatus.php</wsa:Address>
+  <wsa:ServiceName PortName="poOrderStatusServicePort">s:poOrderStatusService</wsa:ServiceName>
+</wsa:EndpointReference>
+         </partnerRole>
+      </partnerLink>
+
+      <partnerLink name="poInfoProvider">
+         <myRole allowedRoles="" binding="RPC" service="poInfoService"/>
+      </partnerLink>
+   </partnerLinks>
+   <wsdlReferences>
+      <wsdl location="http://localhost/WebServices/wsdl/po_orderdoc.wsdl" namespace="http://localhost/WebServices/wsdl/poOrderDoc"/>
+      <wsdl location="http://localhost/WebServices/wsdl/po_orderstatus.wsdl" namespace="http://localhost/WebServices/wsdl/poOrderStatus"/>
+      <wsdl location="wsdl/poInfo.wsdl" namespace="http://localhost:8081/active-bpel/services/poInfoService.wsdl"/>
+   </wsdlReferences>
+</process>

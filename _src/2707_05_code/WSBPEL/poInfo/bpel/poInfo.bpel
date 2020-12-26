@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:ns1="http://localhost:8081/active-bpel/services/poInfoService.wsdl"
+     xmlns:ns2="http://localhost/WebServices/wsdl/poOrderDoc"
+     xmlns:ns3="http://localhost/WebServices/wsdl/poOrderStatus"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     name="poInfo.bpel"
+     suppressJoinFailure="yes"
+     targetNamespace="http://poInfo.bpel">
+   <import importType="http://schemas.xmlsoap.org/wsdl/" 
+           location="wsdl/poInfo.wsdl"
+           namespace="http://localhost:8081/active-bpel/services/poInfoService.wsdl"/>
+   <import importType="http://schemas.xmlsoap.org/wsdl/"
+           location="http://localhost/WebServices/wsdl/po_orderdoc.wsdl"
+           namespace="http://localhost/WebServices/wsdl/poOrderDoc"/>
+   <import importType="http://schemas.xmlsoap.org/wsdl/"
+           location="http://localhost/WebServices/wsdl/po_orderstatus.wsdl"
+           namespace="http://localhost/WebServices/wsdl/poOrderStatus"/>
+
+   <partnerLinks>
+      <partnerLink myRole="poInfoProviderRole" name="poInfoProvider" partnerLinkType="ns1:poInfoLT"/>
+      <partnerLink name="poDocRequester" partnerLinkType="ns1:poDocLT" partnerRole="poDocProviderRole"/>
+      <partnerLink name="poStatusRequester" partnerLinkType="ns1:poStatusLT" partnerRole="poStatusProviderRole"/>
+   </partnerLinks>
+   <variables>
+      <variable messageType="ns1:poInfoRequestMessage" name="poInfoRequestMessage"/>
+      <variable messageType="ns1:poInfoResponseMessage" name="poInfoResponseMessage"/>
+      <variable messageType="ns2:getOrderDocInput" name="poDocRequestMessage"/>
+      <variable messageType="ns2:getOrderDocOutput" name="poDocResponseMessage"/>
+      <variable messageType="ns3:getOrderStatusInput" name="poStatusRequestMessage"/>
+      <variable messageType="ns3:getOrderStatusOutput" name="poStatusResponseMessage"/>
+   </variables>
+   <sequence>
+     <receive createInstance="yes" 
+               operation="getInfo"
+               partnerLink="poInfoProvider"
+               portType="ns1:poInfoPT"
+               variable="poInfoRequestMessage"/>
+      <if>
+       <condition>($poInfoRequestMessage.payload/ns1:par = 'doc')</condition>
+       <sequence>
+        <assign>
+         <copy>
+            <from part="payload" variable="poInfoRequestMessage">
+               <query>ns1:pono</query>
+            </from>
+            <to part="pono" variable="poDocRequestMessage"/>
+         </copy>
+        </assign>
+        <invoke inputVariable="poDocRequestMessage"
+              outputVariable="poDocResponseMessage"
+              operation="getOrderDoc"
+              partnerLink="poDocRequester"
+              portType="ns2:poOrderDocServicePortType">
+        </invoke>
+        <assign>
+         <copy>
+            <from>$poDocResponseMessage.doc</from>
+            <to>$poInfoResponseMessage.payload</to>
+         </copy>
+        </assign>
+       </sequence>
+       <elseif>
+        <condition>($poInfoRequestMessage.payload/ns1:par = 'status')</condition>
+        <sequence>
+        <assign>
+         <copy>
+            <from part="payload" variable="poInfoRequestMessage">
+               <query>ns1:pono</query>
+            </from>
+            <to part="pono" variable="poStatusRequestMessage"/>
+         </copy>
+        </assign>
+        <invoke inputVariable="poStatusRequestMessage"
+              outputVariable="poStatusResponseMessage"
+              operation="getOrderStatus"
+              partnerLink="poStatusRequester"
+              portType="ns3:poOrderStatusServicePortType">
+        </invoke>
+        <assign>
+         <copy>
+            <from>$poStatusResponseMessage.status</from>
+            <to>$poInfoResponseMessage.payload</to>
+         </copy>
+        </assign>
+       </sequence>
+       </elseif>
+       <else> 
+        <assign>
+         <copy>
+            <from>'Wrong input parameter. Should be either doc or status!'</from>
+            <to>$poInfoResponseMessage.payload</to>
+         </copy>
+        </assign>
+       </else>
+      </if>
+      <reply operation="getInfo"
+             partnerLink="poInfoProvider"
+             portType="ns1:poInfoPT"
+             variable="poInfoResponseMessage"/>
+   </sequence>
+</process>

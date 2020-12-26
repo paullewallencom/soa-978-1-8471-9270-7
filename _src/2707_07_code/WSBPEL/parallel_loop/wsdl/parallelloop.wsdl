@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="parallel_loop" 
+    targetNamespace="http://localhost:8081/active-bpel/services/parallel_loop"
+    xmlns:tns="http://localhost:8081/active-bpel/services/parallel_loop"
+    xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd1="http://localhost/XSD/po/"
+    xmlns:ns2="http://localhost/WebServices/wsdl/orderProcessing"
+    xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <import namespace="http://localhost/WebServices/wsdl/orderProcessing"
+          location="http://localhost/WebServices/wsdl/orderProcessing.wsdl"/>
+    <types>
+     <schema elementFormDefault="qualified" targetNamespace="http://localhost/XSD/po/"
+        xmlns="http://www.w3.org/2001/XMLSchema">
+       <element name="purchaseOrder">
+        <complexType>
+         <sequence>
+          <element name="pono" type="xsd:string" /> 
+          <element name="shipTo" type="xsd1:AddressType" /> 
+          <element name="billTo" type="xsd1:AddressType"/>
+          <element name="items" type="xsd1:LineItemsType"/>
+         </sequence> 
+        </complexType>
+       </element> 
+       <complexType name="AddressType">
+        <sequence>
+         <element name="name" type="xsd:string"/>
+         <element name="street" type="xsd:string"/>
+         <element name="city" type="xsd:string"/>
+         <element name="state" type="xsd:string"/>
+         <element name="zip" type="xsd:int"/>
+         <element name="country" type="xsd:NMTOKEN" />
+        </sequence>
+       </complexType>
+       <complexType name="LineItemsType">
+        <sequence>
+         <element minOccurs="1" maxOccurs="unbounded" name="item" type="xsd1:LineItemType" />
+        </sequence>
+       </complexType>
+       <complexType name="LineItemType">
+        <sequence>
+         <element name="partId" type="xsd:int"/>
+         <element name="quantity" type="xsd:decimal"/>
+         <element name="price" type="xsd:decimal"/>
+        </sequence>
+       </complexType>
+     </schema >
+    </types>
+  <message name="loopProcessResponseMessage">
+    <part name="payload" type="xsd:string"/>
+  </message>
+  <message name="loopProcessRequestMessage">
+    <part name="order" element="xsd1:purchaseOrder"/>
+  </message>
+  <portType name="loopProcessPT">
+    <operation name="processOrder">
+      <input message="tns:loopProcessRequestMessage"/>
+      <output message="tns:loopProcessResponseMessage"/>
+    </operation>
+  </portType>
+  <plnk:partnerLinkType name="loopProcessLT">
+   <plnk:role name="loopProcessRole">
+      <plnk:portType name="tns:loopProcessPT"/>
+   </plnk:role>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="orderProcessingLT">
+   <plnk:role name="orderProcessingRole">
+      <plnk:portType name="ns2:orderProcessingPortType"/>
+   </plnk:role>
+  </plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="check_concur" 
+    targetNamespace="http://localhost:8081/active-bpel/services/check_concur.wsdl"
+    xmlns:tns="http://localhost:8081/active-bpel/services/check_concur.wsdl"
+    xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns2="http://localhost/WebServices/wsdl/thread1"
+    xmlns:ns3="http://localhost/WebServices/wsdl/thread2"
+    xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <import namespace="http://localhost/WebServices/wsdl/thread1"
+          location="http://localhost/WebServices/wsdl/thread1.wsdl"/>
+  <import namespace="http://localhost/WebServices/wsdl/thread2"
+          location="http://localhost/WebServices/wsdl/thread2.wsdl"/>
+  <message name="checkconcurResponseMessage">
+    <part name="payload" type="xsd:string"/>
+  </message>
+  <message name="checkconcurRequestMessage">
+    <part name="payload" type="xsd:string"/>
+  </message>
+  <portType name="checkconcurPT">
+    <operation name="getRslt">
+      <input message="tns:checkconcurRequestMessage"/>
+      <output message="tns:checkconcurResponseMessage"/>
+    </operation>
+  </portType>
+  <plnk:partnerLinkType name="checkconcurLT">
+   <plnk:role name="checkconcurRole">
+      <plnk:portType name="tns:checkconcurPT"/>
+   </plnk:role>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="thread1LT">
+   <plnk:role name="thread1Role">
+      <plnk:portType name="ns2:thread1PortType"/>
+   </plnk:role>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="thread2LT">
+   <plnk:role name="thread2Role">
+      <plnk:portType name="ns3:thread2PortType"/>
+   </plnk:role>
+  </plnk:partnerLinkType>
+</definitions>

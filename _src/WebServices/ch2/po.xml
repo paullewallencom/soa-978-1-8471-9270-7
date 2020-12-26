@@ -1,0 +1,31 @@
+<purchaseOrder >
+    <pono>108128476</pono>
+    <billTo>
+     <name>Tony Jamison</name>
+     <street>24 Johnson Road</street>
+     <city>Big Valley</city>
+     <state>VA</state>
+     <zip>23032</zip>
+     <country>US</country>
+    </billTo>
+    <shipTo>
+     <name>Janet Thomson</name>
+     <street>11 Maple Street</street>
+     <city>Small Valley</city>
+     <state>VA</state>
+     <zip>23037</zip>
+     <country>US</country>
+   </shipTo>
+   <items>
+      <item id="24">
+       <partId>743</partId>
+       <quantity>4</quantity>
+       <price currency="USD">15.5</price>
+      </item>
+      <item id="25">
+       <partId>235</partId>
+       <quantity>7</quantity>
+       <price currency="USD">15.75</price>
+      </item>
+   </items>
+</purchaseOrder>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="bpelns:hello"
+         location="bpel/hello.bpel"
+         xmlns="http://schemas.active-endpoints.com/pdd/2004/09/pdd.xsd"
+         xmlns:bpelns="http://hello"
+         xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing">
+<partnerLinks>
+  <partnerLink name="customer">
+   <myRole allowedRoles="" binding="RPC"
+          service="helloServicePT"/>
+  </partnerLink>
+</partnerLinks>
+<wsdlReferences>
+  <wsdl location="wsdl/hello.wsdl" namespace="http://localhost:8081/active-bpel/services/hello"/>
+</wsdlReferences>
+</process>
+

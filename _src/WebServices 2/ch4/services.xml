@@ -1,0 +1,14 @@
+<services>
+ <service>
+  <name>poOrderDocService</name>
+  <wsdl>http://localhost/WebServices/wsdl/po_orderdoc_share.wsdl</wsdl>
+  <function>getOrderDoc</function>
+  <param>doc</param>
+ </service>
+<service>
+  <name>poOrderStatusService</name>
+  <wsdl>http://localhost/WebServices/wsdl/po_orderstatus_share.wsdl</wsdl>
+  <function>getOrderStatus</function>
+  <param>status</param>
+ </service>
+</services>

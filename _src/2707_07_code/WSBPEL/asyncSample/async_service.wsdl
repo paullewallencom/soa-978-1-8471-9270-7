@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="async_service" 
+targetNamespace="http://localhost:8081/active-bpel/services/async_service.wsdl" 
+ xmlns:tns="http://localhost:8081/active-bpel/services/async_service.wsdl"
+ xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+ xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:ns2="http://localhost:8081/active-bpel/services/async_called_service.wsdl" 
+ xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <import namespace="http://localhost:8081/active-bpel/services/async_called_service.wsdl" location="project:/asyncSample/async_called_service.wsdl"/>
+
+  <message name="asyncResponseMessage">
+    <part name="payload" type="xsd:string"/>
+  </message>
+  <message name="asyncRequestMessage">
+    <part name="payload" type="xsd:string"/>
+  </message>
+  <portType name="asyncCallbackPT">
+    <operation name="onResult">
+      <input message="tns:asyncResponseMessage"/>
+    </operation>
+  </portType>
+  <portType name="AsyncCallerPT">
+    <operation name="echo">
+      <input message="tns:asyncRequestMessage"/>
+      <output message="tns:asyncResponseMessage"/>
+    </operation>
+  </portType>
+
+     <binding name="asyncRequesterServiceBinding" type="tns:asyncCallbackPT">
+      <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <operation name="onResult">
+       <soap:operation soapAction="" style="rpc" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+         <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+         </input>
+      </operation>
+   </binding>
+  <service name="asyncRequesterService">
+        <port binding="tns:asyncRequesterServiceBinding" name="asyncRequesterServicePort">
+       <soap:address location="http://localhost:8081/active-bpel/services/asyncRequesterService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </port>
+ 
+    </service>
+<bpws:property name="asyncCorrelationData" type="xsd:string"/>
+<plnk:partnerLinkType name="AsyncCallerPLT">
+   <plnk:role name="AsyncCallerRole">
+      <plnk:portType name="tns:AsyncCallerPT"/>
+   </plnk:role>
+</plnk:partnerLinkType>
+<plnk:partnerLinkType name="asyncRequester">
+   <plnk:role name="asyncProvider">
+      <plnk:portType name="ns2:AsyncCalledServicePT"/>
+   </plnk:role>
+   <plnk:role name="asyncReplyReceiver">
+      <plnk:portType name="tns:asyncCallbackPT"/>
+   </plnk:role>
+</plnk:partnerLinkType>
+<bpws:propertyAlias messageType="ns2:initiateRequestMessage" part="payload" propertyName="tns:asyncCorrelationData"/>
+<bpws:propertyAlias messageType="tns:asyncResponseMessage" part="payload" propertyName="tns:asyncCorrelationData" />
+</definitions>

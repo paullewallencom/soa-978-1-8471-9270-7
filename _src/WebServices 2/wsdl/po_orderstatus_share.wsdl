@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name ="poOrderStatusService"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             targetNamespace="http://localhost/WebServices/wsdl/poOrderStatus">
+    <message name="getOrderStatusInput">
+        <part name="pono" element="xsd:string"/>
+    </message>
+    <message name="getOrderStatusOutput">
+        <part name="body" element="xsd:string"/>
+    </message>
+    <portType name="poOrderStatusServicePortType">
+        <operation name="getOrderStatus">
+           <input message="tns:getOrderStatusInput"/>
+           <output message="tns:getOrderStatusOutput"/>
+        </operation>
+    </portType>
+    <binding name="poOrderStatusServiceBinding" type="tns:poOrderStatusServicePortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getOrderStatus">
+           <soap:operation soapAction="http://localhost/WebServices/ch4/getOrderStatus"/>
+           <input>
+               <soap:body use="literal"/>
+           </input>
+           <output>
+               <soap:body use="literal"/>
+           </output>
+        </operation>
+    </binding>
+    <service name="poOrderStatusService">
+        <port name="poOrderStatusServicePort" binding="tns:poOrderStatusServiceBinding">
+           <soap:address location="http://localhost/WebServices/ch4/SOAPServer_orderstatus.php"/>
+        </port>
+    </service>
+</definitions>

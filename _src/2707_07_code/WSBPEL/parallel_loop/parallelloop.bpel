@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BPEL Process Definition
+Edited using ActiveBPEL(tm) Designer Version 3.0.0 (http://www.active-endpoints.com)
+-->
+<bpel:process xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns="http://localhost/XSD/po/" xmlns:ns1="http://localhost:8081/active-bpel/services/parallel_loop" xmlns:ns2="http://localhost/WebServices/wsdl/orderProcessing" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="parallelloop" suppressJoinFailure="yes" targetNamespace="http://parallelloop">
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="wsdl/parallelloop.wsdl" namespace="http://localhost:8081/active-bpel/services/parallel_loop"/>
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="http://localhost/WebServices/wsdl/orderProcessing.wsdl" namespace="http://localhost/WebServices/wsdl/orderProcessing"/>
+   <bpel:partnerLinks>
+      <bpel:partnerLink myRole="loopProcessRole" name="loopProcessLT" partnerLinkType="ns1:loopProcessLT"/>
+      <bpel:partnerLink name="orderProcessingLT" partnerLinkType="ns1:orderProcessingLT" partnerRole="orderProcessingRole"/>
+   </bpel:partnerLinks>
+   <bpel:variables>
+      <bpel:variable messageType="ns1:loopProcessRequestMessage" name="loopProcessRequestMessage"/>
+      <bpel:variable messageType="ns1:loopProcessResponseMessage" name="loopProcessResponseMessage"/>
+   </bpel:variables>
+   <bpel:sequence>
+      <bpel:receive createInstance="yes" operation="processOrder" partnerLink="loopProcessLT" portType="ns1:loopProcessPT" variable="loopProcessRequestMessage"/>
+      <bpel:forEach counterName="mycounter" parallel="yes">
+         <bpel:startCounterValue>'1'</bpel:startCounterValue>
+         <bpel:finalCounterValue expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">count($loopProcessRequestMessage.order/ns:items/ns:item)</bpel:finalCounterValue>
+         <bpel:scope>
+            <bpel:variables>
+               <bpel:variable messageType="ns2:orderProcessingInput" name="orderProcessingInput"/>
+            </bpel:variables>
+            <bpel:sequence>
+               <bpel:assign>
+                  <bpel:copy>
+                     <bpel:from part="order" variable="loopProcessRequestMessage">
+                        <bpel:query>ns:items/ns:item[$mycounter]/ns:partId</bpel:query>
+                     </bpel:from>
+                     <bpel:to part="partId" variable="orderProcessingInput"/>
+                  </bpel:copy>
+                  <bpel:copy>
+                     <bpel:from part="order" variable="loopProcessRequestMessage">
+                        <bpel:query>ns:items/ns:item[$mycounter]/ns:quantity</bpel:query>
+                     </bpel:from>
+                     <bpel:to part="quantity" variable="orderProcessingInput"/>
+                  </bpel:copy>
+               </bpel:assign>
+               <bpel:invoke inputVariable="orderProcessingInput" operation="startProcessing" partnerLink="orderProcessingLT" portType="ns2:orderProcessingPortType"/>
+            </bpel:sequence>
+         </bpel:scope>
+      </bpel:forEach>
+      <bpel:assign>
+         <bpel:copy>
+            <bpel:from>
+               <bpel:literal>Order processing completed successfully!</bpel:literal>
+            </bpel:from>
+            <bpel:to part="payload" variable="loopProcessResponseMessage"/>
+         </bpel:copy>
+      </bpel:assign>
+      <bpel:reply operation="processOrder" partnerLink="loopProcessLT" portType="ns1:loopProcessPT" variable="loopProcessResponseMessage"/>
+   </bpel:sequence>
+</bpel:process>

@@ -1,0 +1,18 @@
+<?xml version='1.0'?>
+<schema targetNamespace="http://localhost/WebServices/schema/poxmlparams/"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:types1="http://localhost/WebServices/schema/poxmlparams/">
+  <element name="params">
+   <complexType>
+     <sequence>
+       <element minOccurs="0" maxOccurs="unbounded" name="param" type="types1:paramType" /> 
+     </sequence> 
+   </complexType>
+  </element> 
+  <complexType name="paramType">
+    <sequence>
+      <element name="key" type="string"/>
+      <element name="value" type="string"/>
+    </sequence>
+  </complexType>
+</schema >

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name ="poServiceSecure"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             targetNamespace="http://localhost/WebServices/wsdl/po_headers.wsdl">
+    <message name="getPlaceOrderInput">
+        <part name="po" element="xsd:string"/>
+    </message>
+    <message name="getPlaceOrderOutput">
+        <part name="body" element="xsd:string"/>
+    </message>
+    <portType name="poServiceSecurePortType">
+        <operation name="placeOrder">
+           <input message="tns:getPlaceOrderInput"/>
+           <output message="tns:getPlaceOrderOutput"/>
+        </operation>
+    </portType>
+    <binding name="poServiceSecureBinding" type="tns:poServiceSecurePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="placeOrder">
+           <soap:operation soapAction="http://localhost/WebServices/ch4/placeOrder"/>
+           <input>
+               <soap:body use="literal"/>
+           </input>
+           <output>
+               <soap:body use="literal"/>
+           </output>
+        </operation>
+    </binding>
+    <service name="poServiceSecure">
+        <port name="poServiceSecurePort" binding="tns:poServiceSecureBinding">
+           <soap:address location="http://localhost/WebServices/ch4/SoapServer_headers.php"/>
+        </port>
+    </service>
+</definitions>

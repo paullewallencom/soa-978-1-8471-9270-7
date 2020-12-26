@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name ="orderProcessingService"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             targetNamespace="http://localhost/WebServices/wsdl/orderProcessing"
+             xmlns:tns="http://localhost/WebServices/wsdl/orderProcessing">
+    <message name="orderProcessingInput">
+        <part name="partId" type="xsd:int"/>
+        <part name="quantity" type="xsd:decimal"/>
+    </message>
+    <portType name="orderProcessingPortType">
+        <operation name="startProcessing">
+           <input message="tns:orderProcessingInput"/>
+        </operation>
+    </portType>
+    <binding name="orderProcessingServiceBinding" type="tns:orderProcessingPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="startProcessing">
+           <soap:operation soapAction="http://localhost/WebServices/ch7/startProcessing"/>
+           <input>
+               <soap:body use="literal"/>
+           </input>
+        </operation>
+    </binding>
+    <service name="orderProcessingService">
+        <port name="orderProcessingServicePort" binding="tns:orderProcessingServiceBinding">
+           <soap:address location="http://localhost/WebServices/ch7/SOAPServer_orderProcessing.php"/>
+        </port>
+    </service>
+</definitions>

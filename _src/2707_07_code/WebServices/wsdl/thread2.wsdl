@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name ="thread2Service"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             targetNamespace="http://localhost/WebServices/wsdl/thread2"
+             xmlns:tns="http://localhost/WebServices/wsdl/thread2">
+    <message name="thread2Input">
+        <part name="payload" type="xsd:string"/>
+    </message>
+    <portType name="thread2PortType">
+        <operation name="startThread2">
+           <input message="tns:thread2Input"/>
+        </operation>
+    </portType>
+    <binding name="thread2ServiceBinding" type="tns:thread2PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="startThread2">
+           <soap:operation soapAction="http://localhost/WebServices/ch7/startThread2"/>
+           <input>
+               <soap:body use="literal"/>
+           </input>
+        </operation>
+    </binding>
+    <service name="thread2Service">
+        <port name="thread2ServicePort" binding="tns:thread2ServiceBinding">
+           <soap:address location="http://localhost/WebServices/ch7/SOAPServer_thread2.php"/>
+        </port>
+    </service>
+</definitions>

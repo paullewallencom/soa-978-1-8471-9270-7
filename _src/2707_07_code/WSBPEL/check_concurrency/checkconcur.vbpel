@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph id="0" name="PROCESS">
+   <att name="processName" value="checkconcur"/>
+   <att name="targetNamespace" value="http://checkconcur"/>
+   <att name="enableInstanceCompensation" value="false"/>
+   <att name="exitStandardFault" value="false"/>
+   <att name="disableSelectionFailure" value="false"/>
+   <att name="createXPath" value="false"/>
+   <att name="modelVersion" value="3"/>
+   <att name="processNamespace" value="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+   <att name="objectId" value="118222894676501229"/>
+   <node id="1" name="EXTENSION_CONTAINER">
+      <att name="ExtensionCount" value="0"/>
+      <att name="BPELDocumentation" value=""/>
+   </node>
+   <att>
+      <graph id="2" name="IMPORTS">
+         <att name="ImportCount" value="3"/>
+         <node id="3" name="IMPORT">
+            <att name="ImportLocation" value="wsdl/checkconcur.wsdl;http://localhost:8081/active-bpel/services/check_concur.wsdl;http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="ImportNamespace" value="http://localhost:8081/active-bpel/services/check_concur.wsdl"/>
+            <att name="ImportType" value="http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="objectId" value="118222898095301383"/>
+         </node>
+         <node id="4" name="IMPORT">
+            <att name="ImportLocation" value="http://localhost/WebServices/wsdl/thread1.wsdl;http://localhost/WebServices/wsdl/thread1;http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="ImportNamespace" value="http://localhost/WebServices/wsdl/thread1"/>
+            <att name="ImportType" value="http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="objectId" value="118222908187501597"/>
+         </node>
+         <node id="5" name="IMPORT">
+            <att name="ImportLocation" value="http://localhost/WebServices/wsdl/thread2.wsdl;http://localhost/WebServices/wsdl/thread2;http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="ImportNamespace" value="http://localhost/WebServices/wsdl/thread2"/>
+            <att name="ImportType" value="http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="objectId" value="118222909412501707"/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="6" name="NAMESPACES">
+         <att name="NamespaceCount" value="5"/>
+         <node id="7" name="NAMESPACE">
+            <att name="Prefix" value="xsd"/>
+            <att name="Namespace" value="http://www.w3.org/2001/XMLSchema"/>
+            <att name="objectId" value="118222894676501255"/>
+         </node>
+         <node id="8" name="NAMESPACE">
+            <att name="Prefix" value="bpel"/>
+            <att name="Namespace" value="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+            <att name="objectId" value="118222894676501257"/>
+         </node>
+         <node id="9" name="NAMESPACE">
+            <att name="Prefix" value="ns1"/>
+            <att name="Namespace" value="http://localhost:8081/active-bpel/services/check_concur.wsdl"/>
+            <att name="objectId" value="118222898095301381"/>
+         </node>
+         <node id="10" name="NAMESPACE">
+            <att name="Prefix" value="ns2"/>
+            <att name="Namespace" value="http://localhost/WebServices/wsdl/thread1"/>
+            <att name="objectId" value="118222908187501595"/>
+         </node>
+         <node id="11" name="NAMESPACE">
+            <att name="Prefix" value="ns3"/>
+            <att name="Namespace" value="http://localhost/WebServices/wsdl/thread2"/>
+            <att name="objectId" value="118222909412501705"/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="12" name="PARTNER_LINKS">
+         <att name="PartnerLinkCount" value="3"/>
+         <node id="13" name="PARTNER_LINK">
+            <att name="PartnerLinkName" value="checkconcurLT"/>
+            <att name="PartnerLinkType" value="ns1:checkconcurLT"/>
+            <att name="MyRole" value="checkconcurRole"/>
+            <att name="visible" value="false,false,false,false,false,"/>
+            <att name="objectId" value="118222898090601361"/>
+            <att name="InitializePartnerRole" value=""/>
+         </node>
+         <node id="14" name="PARTNER_LINK">
+            <att name="PartnerLinkName" value="thread1LT"/>
+            <att name="PartnerLinkType" value="ns1:thread1LT"/>
+            <att name="PartnerRole" value="thread1Role"/>
+            <att name="visible" value="false,false,false,false,false,"/>
+            <att name="objectId" value="118222908187501579"/>
+            <att name="InitializePartnerRole" value=""/>
+         </node>
+         <node id="15" name="PARTNER_LINK">
+            <att name="PartnerLinkName" value="thread2LT"/>
+            <att name="PartnerLinkType" value="ns1:thread2LT"/>
+            <att name="PartnerRole" value="thread2Role"/>
+            <att name="visible" value="false,false,false,false,false,"/>
+            <att name="objectId" value="118222909412501689"/>
+            <att name="InitializePartnerRole" value=""/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="16" name="VARIABLE_CONTAINERS">
+         <att name="VariableCount" value="4"/>
+         <node id="17" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="checkconcurRequestMessage"/>
+            <att name="VariableSpecification" value="MessageType=ns1:checkconcurRequestMessage"/>
+            <att name="objectId" value="118222898090601373"/>
+         </node>
+         <node id="18" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="checkconcurResponseMessage"/>
+            <att name="VariableSpecification" value="MessageType=ns1:checkconcurResponseMessage"/>
+            <att name="objectId" value="118222898092101375"/>
+         </node>
+         <node id="19" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="thread1Input"/>
+            <att name="VariableSpecification" value="MessageType=ns2:thread1Input"/>
+            <att name="objectId" value="118222908187501591"/>
+         </node>
+         <node id="20" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="thread2Input"/>
+            <att name="VariableSpecification" value="MessageType=ns3:thread2Input"/>
+            <att name="objectId" value="118222909412501701"/>
+         </node>
+      </graph>
+   </att>
+   <node id="21" name="CORRELATION_CONTAINERS">
+      <att name="CorrSetCount" value="0"/>
+   </node>
+   <att>
+      <graph id="22" name="SCOPE_ACTIVITY">
+         <att name="text" value="Process Activities"/>
+         <att name="backgroundColor" value="RGB {192,192,192}"/>
+         <att>
+            <graph id="23" name="SEQUENCE">
+               <att name="objectId" value="118222896131201359"/>
+               <att name="location" value="LOC {30,30}"/>
+               <att name="size" value="DIM {240,674}"/>
+               <node id="24" name="RECEIVE">
+                  <att name="objectId" value="118222939984302099"/>
+                  <att name="size" value="DIM {111,56}"/>
+                  <att name="text" value="Receive getRslt"/>
+                  <att name="partnerLink" value="checkconcurLT"/>
+                  <att name="portType" value="ns1:checkconcurPT"/>
+                  <att name="operation" value="getRslt"/>
+                  <att name="createInstance" value="true"/>
+                  <att name="variable" value="checkconcurRequestMessage"/>
+                  <att name="fromParts" value="0"/>
+               </node>
+               <att>
+                  <graph id="25" name="ASSIGN">
+                     <att name="objectId" value="118222910382801829"/>
+                     <att name="size" value="DIM {104,56}"/>
+                     <att name="copy" value="1"/>
+                     <att name="validateVars" value="false"/>
+                     <node id="26" name="ASSIGN_COPY">
+                        <att name="fromVariable" value="checkconcurRequestMessage"/>
+                        <att name="fromPart" value="payload"/>
+                        <att name="objectId" value="118222916871801981"/>
+                        <att name="toVariable" value="thread1Input"/>
+                        <att name="toPart" value="payload"/>
+                        <att name="ignoreMissingFromData" value="false"/>
+                     </node>
+                  </graph>
+               </att>
+               <att>
+                  <graph id="27" name="ASSIGN">
+                     <att name="objectId" value="118222910776501879"/>
+                     <att name="size" value="DIM {104,56}"/>
+                     <att name="copy" value="1"/>
+                     <att name="validateVars" value="false"/>
+                     <node id="28" name="ASSIGN_COPY">
+                        <att name="fromVariable" value="checkconcurRequestMessage"/>
+                        <att name="fromPart" value="payload"/>
+                        <att name="objectId" value="118222919020302001"/>
+                        <att name="toVariable" value="thread2Input"/>
+                        <att name="toPart" value="payload"/>
+                        <att name="ignoreMissingFromData" value="false"/>
+                     </node>
+                  </graph>
+               </att>
+               <att>
+                  <graph id="29" name="FLOW">
+                     <att name="objectId" value="118230754426500635"/>
+                     <att name="size" value="DIM {220,127}"/>
+                     <node id="30" name="INVOKE">
+                        <att name="objectId" value="118222908187501593"/>
+                        <att name="location" value="LOC {-5,10}"/>
+                        <att name="size" value="DIM {106,56}"/>
+                        <att name="text" value="Invoke startThread1"/>
+                        <att name="partnerLink" value="thread1LT"/>
+                        <att name="portType" value="ns2:thread1PortType"/>
+                        <att name="operation" value="startThread1"/>
+                        <att name="inputVariable" value="thread1Input"/>
+                        <att name="fromParts" value="0"/>
+                        <att name="toParts" value="0"/>
+                     </node>
+                     <node id="31" name="INVOKE">
+                        <att name="objectId" value="118222909412501703"/>
+                        <att name="location" value="LOC {95,10}"/>
+                        <att name="size" value="DIM {106,56}"/>
+                        <att name="text" value="Invoke startThread2"/>
+                        <att name="partnerLink" value="thread2LT"/>
+                        <att name="portType" value="ns3:thread2PortType"/>
+                        <att name="operation" value="startThread2"/>
+                        <att name="inputVariable" value="thread2Input"/>
+                        <att name="fromParts" value="0"/>
+                        <att name="toParts" value="0"/>
+                     </node>
+                  </graph>
+               </att>
+               <att>
+                  <graph id="32" name="ASSIGN">
+                     <att name="objectId" value="118222911275001929"/>
+                     <att name="size" value="DIM {104,56}"/>
+                     <att name="copy" value="1"/>
+                     <att name="validateVars" value="false"/>
+                     <node id="33" name="ASSIGN_COPY">
+                        <att name="fromLiteral" value="Two threads completed successfully!"/>
+                        <att name="objectId" value="118222924248402021"/>
+                        <att name="toVariable" value="checkconcurResponseMessage"/>
+                        <att name="toPart" value="payload"/>
+                        <att name="ignoreMissingFromData" value="false"/>
+                     </node>
+                  </graph>
+               </att>
+               <node id="34" name="REPLY">
+                  <att name="objectId" value="118222939984302101"/>
+                  <att name="size" value="DIM {100,56}"/>
+                  <att name="text" value="Reply getRslt"/>
+                  <att name="partnerLink" value="checkconcurLT"/>
+                  <att name="portType" value="ns1:checkconcurPT"/>
+                  <att name="operation" value="getRslt"/>
+                  <att name="variable" value="checkconcurResponseMessage"/>
+                  <att name="toParts" value="0"/>
+               </node>
+            </graph>
+         </att>
+      </graph>
+   </att>
+   <node id="35" name="SCOPE_FAULTHANDLER"/>
+   <node id="36" name="SCOPE_EVENTHANDLER"/>
+</graph>

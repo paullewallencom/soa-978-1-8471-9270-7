@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name ="poService"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             targetNamespace="http://localhost/WebServices/ch2/wsdl/reg.wsdl">
+
+    <message name="getRegOrderInput">
+        <part name="body" element="xsd:string"/>
+    </message>
+
+    <message name="getRegOrderOutput">
+        <part name="body" element="xsd:string"/>
+    </message>
+
+    <portType name="regServicePortType">
+        <operation name="regOrder">
+           <input message="tns:getRegOrderInput"/>
+           <output message="tns:getRegOrderOutput"/>
+        </operation>
+    </portType>
+
+    <binding name="regServiceBinding" type="tns:regServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="regOrder">
+           <soap:operation soapAction="http://localhost/WebServices/ch2/regOrder"/>
+           <input>
+               <soap:body use="literal"/>
+           </input>
+           <output>
+               <soap:body use="literal"/>
+           </output>
+        </operation>
+    </binding>
+
+    <service name="poService">
+        <port name="poServicePort" binding="tns:regServiceBinding">
+           <soap:address location="http://localhost/WebServices/ch2/SoapServer_reg.php"/>
+        </port>
+    </service>
+</definitions>
+

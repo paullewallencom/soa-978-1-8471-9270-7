@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BPEL Process Definition
+Edited using ActiveBPEL(tm) Designer Version 3.0.0 (http://www.active-endpoints.com)
+-->
+<bpel:process xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://localhost:8081/active-bpel/services/hello" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="hello" suppressJoinFailure="yes" targetNamespace="http://hello">
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="wsdl/hello.wsdl" namespace="http://localhost:8081/active-bpel/services/hello"/>
+   <bpel:partnerLinks>
+      <bpel:partnerLink myRole="helloServiceRole" name="helloPartnerLinkType" partnerLinkType="ns1:helloPartnerLinkType"/>
+   </bpel:partnerLinks>
+   <bpel:variables>
+      <bpel:variable messageType="ns1:inputMessage" name="inputMessage"/>
+      <bpel:variable messageType="ns1:outputMessage" name="outputMessage"/>
+   </bpel:variables>
+   <bpel:sequence>
+      <bpel:receive createInstance="yes" operation="hello" partnerLink="helloPartnerLinkType" portType="ns1:helloServicePT" variable="inputMessage"/>
+      <bpel:assign>
+         <bpel:copy>
+            <bpel:from>concat( 'Hello, ', bpws:getVariableData('inputMessage', 'firstName'),'!')</bpel:from>
+            <bpel:to part="hello" variable="outputMessage"/>
+         </bpel:copy>
+      </bpel:assign>
+      <bpel:reply operation="hello" partnerLink="helloPartnerLinkType" portType="ns1:helloServicePT" variable="outputMessage"/>
+   </bpel:sequence>
+</bpel:process>

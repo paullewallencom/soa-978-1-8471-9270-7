@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process xmlns="http://schemas.active-endpoints.com/pdd/2006/08/pdd.xsd" xmlns:bpelns="http://checkconcur" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" location="bpel/check_concurrency/checkconcur.bpel" name="bpelns:checkconcur">
+   <partnerLinks>
+      <partnerLink name="checkconcurLT">
+         <myRole allowedRoles="" binding="RPC" service="checkconcurService"/>
+      </partnerLink>
+      <partnerLink name="thread1LT">
+         <partnerRole endpointReference="static" invokeHandler="default:Address">
+            <wsa:EndpointReference xmlns:s="http://localhost/WebServices/wsdl/thread1">
+      <wsa:Address>http://localhost/WebServices/ch7/SoapServer_thread1.php</wsa:Address>
+      <wsa:ServiceName PortName="thread1ServicePort">s:thread1Service</wsa:ServiceName>
+</wsa:EndpointReference>
+         </partnerRole>
+      </partnerLink>
+      <partnerLink name="thread2LT">
+         <partnerRole endpointReference="static" invokeHandler="default:Address">
+            <wsa:EndpointReference xmlns:s="http://localhost/WebServices/wsdl/thread2">
+      <wsa:Address>http://localhost/WebServices/ch7/SoapServer_thread2.php</wsa:Address>
+      <wsa:ServiceName PortName="thread2ServicePort">s:thread2Service</wsa:ServiceName>
+</wsa:EndpointReference>
+         </partnerRole>
+      </partnerLink>
+   </partnerLinks>
+   <references>
+      <wsdl location="project:/check_concurrency/wsdl/checkconcur.wsdl" namespace="http://localhost:8081/active-bpel/services/check_concur.wsdl"/>
+      <wsdl location="http://localhost/WebServices/wsdl/thread1.wsdl" namespace="http://localhost/WebServices/wsdl/thread1"/>
+      <wsdl location="http://localhost/WebServices/wsdl/thread2.wsdl" namespace="http://localhost/WebServices/wsdl/thread2"/>
+   </references>
+</process>

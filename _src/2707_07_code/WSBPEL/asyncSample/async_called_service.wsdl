@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://localhost:8081/active-bpel/services/async_called_service.wsdl" 
+  xmlns:impl="http://localhost:8081/active-bpel/services/async_called_service.wsdl" 
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  
+   <wsdl:message name="initiateRequestMessage">
+      <wsdl:part name="payload" type="xsd:string"/>
+   </wsdl:message>
+
+   <wsdl:portType name="AsyncCalledServicePT">
+      <wsdl:operation name="initiateAsync">
+         <wsdl:input message="impl:initiateRequestMessage" name="initiateRequestMessage"/>
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="AsyncCalledServiceBinding" type="impl:AsyncCalledServicePT">
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <wsdl:operation name="initiateAsync">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="initiateRequestMessage">
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8081/active-bpel/services/async_called_service.wsdl" use="encoded"/>
+         </wsdl:input>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="AsyncCalledServiceService">
+      <wsdl:port binding="impl:AsyncCalledServiceBinding" name="AsyncCalledServicePort">
+         <wsdlsoap:address location="http://localhost:8081/active-bpel/services/AsyncCalledService"/>
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>

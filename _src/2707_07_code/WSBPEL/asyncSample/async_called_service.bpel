@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BPEL Process Definition
+Edited using ActiveBPEL(tm) Designer Version 3.0.0 (http://www.active-endpoints.com)
+-->
+<bpel:process xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://localhost:8081/active-bpel/services/async_called_service.wsdl" xmlns:ns2="http://localhost:8081/active-bpel/services/async_service.wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="async_called_service" suppressJoinFailure="yes" targetNamespace="http://async_called_service">
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="async_called_service.wsdl" namespace="http://localhost:8081/active-bpel/services/async_called_service.wsdl"/>
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="async_service.wsdl" namespace="http://localhost:8081/active-bpel/services/async_service.wsdl"/>
+   <bpel:partnerLinks>
+      <bpel:partnerLink myRole="asyncProvider" name="asyncRequester" partnerLinkType="ns2:asyncRequester" partnerRole="asyncReplyReceiver"/>
+   </bpel:partnerLinks>
+   <bpel:variables>
+      <bpel:variable messageType="ns1:initiateRequestMessage" name="initiateRequestMessage"/>
+      <bpel:variable messageType="ns2:asyncResponseMessage" name="asyncResponseMessage"/>
+   </bpel:variables>
+   <bpel:sequence>
+      <bpel:receive createInstance="yes" operation="initiateAsync" partnerLink="asyncRequester" portType="ns1:AsyncCalledServicePT" variable="initiateRequestMessage"/>
+      <bpel:assign>
+         <bpel:copy>
+            <bpel:from part="payload" variable="initiateRequestMessage"/>
+            <bpel:to part="payload" variable="asyncResponseMessage"/>
+         </bpel:copy>
+      </bpel:assign>
+      <bpel:wait>
+         <bpel:for>'PT5S'</bpel:for>
+      </bpel:wait>
+      <bpel:invoke inputVariable="asyncResponseMessage" operation="onResult" partnerLink="asyncRequester" portType="ns2:asyncCallbackPT"/>
+   </bpel:sequence>
+</bpel:process>

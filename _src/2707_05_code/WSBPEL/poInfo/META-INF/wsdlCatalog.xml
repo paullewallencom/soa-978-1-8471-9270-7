@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdlCatalog>
+ <wsdlEntry location="wsdl/poInfo.wsdl"
+            classpath="wsdl/poInfo.wsdl" />
+
+</wsdlCatalog> 

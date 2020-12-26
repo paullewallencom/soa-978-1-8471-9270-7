@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process xmlns="http://schemas.active-endpoints.com/pdd/2006/08/pdd.xsd" xmlns:bpelns="http://async_service" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" location="asyncSample/async_service.bpel" name="bpelns:async_service">
+   <partnerLinks>
+      <partnerLink name="AsyncCallerPLT">
+         <myRole allowedRoles="" binding="RPC" service="AsyncCallerService"/>
+      </partnerLink>
+      <partnerLink name="asyncRequester">
+         <partnerRole endpointReference="static" invokeHandler="default:Address">
+            <wsa:EndpointReference xmlns:cs="http://localhost:8081/active-bpel/services/async_called_service.wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing"> 
+       <wsa:Address>http://localhost:8081/active-bpel/services/AsyncCalledServiceService</wsa:Address> 
+       <wsa:ServiceName PortName="AsyncCalledServicePort">cs:AsyncCalledServiceService</wsa:ServiceName> 
+         <wsa:ReferenceProperties>
+                  <wsa:ReplyTo>
+                     <wsa:ServiceName xmlns:s="http://localhost:8081/active-bpel/services/async_service.wsdl" PortName="asyncRequesterServicePort">s:asyncRequesterService</wsa:ServiceName>
+           <wsa:Address>http://localhost:8081/active-bpel/services/asyncRequesterService</wsa:Address>
+                 </wsa:ReplyTo>
+         </wsa:ReferenceProperties>
+</wsa:EndpointReference>
+         </partnerRole>
+         <myRole allowedRoles="" binding="RPC" service="asyncRequesterService"/>
+      </partnerLink>
+   </partnerLinks>
+   <references>
+      <wsdl location="project:/asyncSample/async_service.wsdl" namespace="http://localhost:8081/active-bpel/services/async_service.wsdl"/>
+      <wsdl location="project:/asyncSample/async_called_service.wsdl" namespace="http://localhost:8081/active-bpel/services/async_called_service.wsdl"/>
+   </references>
+</process>

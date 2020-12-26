@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name ="poService"
+             targetNamespace="http://localhost/WebServices/wsdl/po/"
+             xmlns:tns="http://localhost/WebServices/wsdl/po/"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns:xsd1="http://localhost/WebServices/schema/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+    <types>
+     <schema targetNamespace="http://localhost/WebServices/schema/"
+        xmlns="http://www.w3.org/2001/XMLSchema">
+       <element name="purchaseOrder">
+        <complexType>
+         <sequence>
+          <element name="pono" type="xsd:string" /> 
+          <element name="shipTo" type="xsd1:AddressType" /> 
+          <element name="billTo" type="xsd1:AddressType"/>
+          <element name="items" type="xsd1:LineItemsType"/>
+         </sequence> 
+        </complexType>
+       </element> 
+       <complexType name="AddressType">
+        <sequence>
+         <element name="name" type="xsd:string"/>
+         <element name="street" type="xsd:string"/>
+         <element name="city" type="xsd:string"/>
+         <element name="state" type="xsd:string"/>
+         <element name="zip" type="xsd:int"/>
+         <element name="country" type="xsd:NMTOKEN" />
+        </sequence>
+       </complexType>
+       <complexType name="LineItemsType">
+        <sequence>
+         <element minOccurs="1" maxOccurs="unbounded" name="item" type="xsd1:LineItemType" />
+        </sequence>
+       </complexType>
+       <complexType name="LineItemType">
+        <sequence>
+         <element name="partId" type="xsd:int"/>
+         <element name="quantity" type="xsd:decimal"/>
+         <element name="price" type="xsd:decimal"/>
+        </sequence>
+       </complexType>
+     </schema >
+    </types>
+    <message name="getPlaceOrderInput">
+        <part name="body" element="xsd1:purchaseOrder"/>
+    </message>
+    <message name="getPlaceOrderOutput">
+        <part name="body" element="xsd:string"/>
+    </message>
+    <portType name="poServicePortType">
+        <operation name="placeOrder">
+           <input message="tns:getPlaceOrderInput"/>
+           <output message="tns:getPlaceOrderOutput"/>
+        </operation>
+    </portType>
+    <binding name="poServiceBinding" type="tns:poServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="placeOrder">
+           <soap:operation soapAction="http://localhost/WebServices/ch2/placeOrder"/>
+           <input>
+               <soap:body use="literal" />
+           </input>
+           <output>
+               <soap:body use="literal" />
+           </output>
+        </operation>
+    </binding>
+    <service name="poService">
+        <port name="poServicePort" binding="tns:poServiceBinding">
+           <soap:address location="http://localhost/WebServices/ch2/SOAPServer_typed.php"/>
+        </port>
+    </service>
+</definitions>

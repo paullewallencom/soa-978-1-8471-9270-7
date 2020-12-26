@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions targetNamespace="http://localhost:8081/active-bpel/services/hello"
+      xmlns:tns="http://localhost:8081/active-bpel/services/hello"
+      xmlns="http://schemas.xmlsoap.org/wsdl/"
+      xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"    
+      xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">  
+<!-- abstract characteristics of the WS-BPEL process service -->
+<message name="inputMessage">
+   <part name="firstName" type="xsd:string"/>
+</message>
+<message name="outputMessage">
+   <part name="hello" type="xsd:string"/>
+</message>
+<portType name="helloServicePT">
+   <operation name="hello">
+      <input name="inputMessage" message="tns:inputMessage"/>
+      <output name="outputMessage" message="tns:outputMessage"/>
+   </operation>
+</portType>
+<!-- partnerLinkType section representing interaction between the WS-BPEL service and its client -->
+<plnk:partnerLinkType name="helloPartnerLinkType">
+   <plnk:role name="helloServiceRole">
+       <plnk:portType name="tns:helloServicePT"/>
+   </plnk:role>
+</plnk:partnerLinkType>
+</definitions>

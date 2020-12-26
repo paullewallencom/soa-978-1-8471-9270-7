@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph id="0" name="PROCESS">
+   <att name="processName" value="poInfo"/>
+   <att name="targetNamespace" value="http://poInfo"/>
+   <att name="enableInstanceCompensation" value="false"/>
+   <att name="exitStandardFault" value="false"/>
+   <att name="disableSelectionFailure" value="false"/>
+   <att name="createXPath" value="false"/>
+   <att name="modelVersion" value="3"/>
+   <att name="processNamespace" value="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+   <att name="objectId" value="118126470762503249"/>
+   <node id="1" name="EXTENSION_CONTAINER">
+      <att name="ExtensionCount" value="0"/>
+      <att name="BPELDocumentation" value=""/>
+   </node>
+   <att>
+      <graph id="2" name="IMPORTS">
+         <att name="ImportCount" value="3"/>
+         <node id="3" name="IMPORT">
+            <att name="ImportLocation" value="wsdl/poInfo.wsdl;http://localhost:8081/active-bpel/services/poInfoService.wsdl;http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="ImportNamespace" value="http://localhost:8081/active-bpel/services/poInfoService.wsdl"/>
+            <att name="ImportType" value="http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="objectId" value="118126478815603399"/>
+         </node>
+         <node id="4" name="IMPORT">
+            <att name="ImportLocation" value="http://localhost/WebServices/wsdl/po_orderdoc.wsdl;http://localhost/WebServices/wsdl/poOrderDoc;http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="ImportNamespace" value="http://localhost/WebServices/wsdl/poOrderDoc"/>
+            <att name="ImportType" value="http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="objectId" value="118126491987503677"/>
+         </node>
+         <node id="5" name="IMPORT">
+            <att name="ImportLocation" value="http://localhost/WebServices/wsdl/po_orderstatus.wsdl;http://localhost/WebServices/wsdl/poOrderStatus;http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="ImportNamespace" value="http://localhost/WebServices/wsdl/poOrderStatus"/>
+            <att name="ImportType" value="http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="objectId" value="118126512325004211"/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="6" name="NAMESPACES">
+         <att name="NamespaceCount" value="5"/>
+         <node id="7" name="NAMESPACE">
+            <att name="Prefix" value="xsd"/>
+            <att name="Namespace" value="http://www.w3.org/2001/XMLSchema"/>
+            <att name="objectId" value="118126470762503275"/>
+         </node>
+         <node id="8" name="NAMESPACE">
+            <att name="Prefix" value="bpel"/>
+            <att name="Namespace" value="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+            <att name="objectId" value="118126470762503277"/>
+         </node>
+         <node id="9" name="NAMESPACE">
+            <att name="Prefix" value="ns1"/>
+            <att name="Namespace" value="http://localhost:8081/active-bpel/services/poInfoService.wsdl"/>
+            <att name="objectId" value="118126478815603397"/>
+         </node>
+         <node id="10" name="NAMESPACE">
+            <att name="Prefix" value="ns2"/>
+            <att name="Namespace" value="http://localhost/WebServices/wsdl/poOrderDoc"/>
+            <att name="objectId" value="118126491987503675"/>
+         </node>
+         <node id="11" name="NAMESPACE">
+            <att name="Prefix" value="ns3"/>
+            <att name="Namespace" value="http://localhost/WebServices/wsdl/poOrderStatus"/>
+            <att name="objectId" value="118126512325004209"/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="12" name="PARTNER_LINKS">
+         <att name="PartnerLinkCount" value="3"/>
+         <node id="13" name="PARTNER_LINK">
+            <att name="PartnerLinkName" value="poInfoLT"/>
+            <att name="PartnerLinkType" value="ns1:poInfoLT"/>
+            <att name="MyRole" value="poInfoProviderRole"/>
+            <att name="visible" value="false,false,false,false,false,"/>
+            <att name="objectId" value="118126478809303377"/>
+            <att name="InitializePartnerRole" value=""/>
+         </node>
+         <node id="14" name="PARTNER_LINK">
+            <att name="PartnerLinkName" value="poDocLT"/>
+            <att name="PartnerLinkType" value="ns1:poDocLT"/>
+            <att name="PartnerRole" value="poDocProviderRole"/>
+            <att name="visible" value="false,false,false,false,false,"/>
+            <att name="objectId" value="118126491987503657"/>
+            <att name="InitializePartnerRole" value=""/>
+         </node>
+         <node id="15" name="PARTNER_LINK">
+            <att name="PartnerLinkName" value="poStatusLT"/>
+            <att name="PartnerLinkType" value="ns1:poStatusLT"/>
+            <att name="PartnerRole" value="poStatusProviderRole"/>
+            <att name="visible" value="false,false,false,false,false,"/>
+            <att name="objectId" value="118126512323404191"/>
+            <att name="InitializePartnerRole" value=""/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="16" name="VARIABLE_CONTAINERS">
+         <att name="VariableCount" value="6"/>
+         <node id="17" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="poInfoRequestMessage"/>
+            <att name="VariableSpecification" value="MessageType=ns1:poInfoRequestMessage"/>
+            <att name="objectId" value="118126478809303389"/>
+         </node>
+         <node id="18" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="poInfoResponseMessage"/>
+            <att name="VariableSpecification" value="MessageType=ns1:poInfoResponseMessage"/>
+            <att name="objectId" value="118126478810903391"/>
+         </node>
+         <node id="19" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="getOrderDocInput"/>
+            <att name="VariableSpecification" value="MessageType=ns2:getOrderDocInput"/>
+            <att name="objectId" value="118126491987503669"/>
+         </node>
+         <node id="20" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="getOrderDocOutput"/>
+            <att name="VariableSpecification" value="MessageType=ns2:getOrderDocOutput"/>
+            <att name="objectId" value="118126491987503671"/>
+         </node>
+         <node id="21" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="getOrderStatusInput"/>
+            <att name="VariableSpecification" value="MessageType=ns3:getOrderStatusInput"/>
+            <att name="objectId" value="118126512323404203"/>
+         </node>
+         <node id="22" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="getOrderStatusOutput"/>
+            <att name="VariableSpecification" value="MessageType=ns3:getOrderStatusOutput"/>
+            <att name="objectId" value="118126512325004205"/>
+         </node>
+      </graph>
+   </att>
+   <node id="23" name="CORRELATION_CONTAINERS">
+      <att name="CorrSetCount" value="0"/>
+   </node>
+   <att>
+      <graph id="24" name="SCOPE_ACTIVITY">
+         <att name="text" value="Process Activities"/>
+         <att name="backgroundColor" value="RGB {192,192,192}"/>
+         <att>
+            <graph id="25" name="SEQUENCE">
+               <att name="objectId" value="118126479609303469"/>
+               <att name="location" value="LOC {80,30}"/>
+               <att name="size" value="DIM {540,712}"/>
+               <node id="26" name="RECEIVE">
+                  <att name="objectId" value="118126478814003393"/>
+                  <att name="size" value="DIM {111,56}"/>
+                  <att name="text" value="Receive getInfo"/>
+                  <att name="partnerLink" value="poInfoLT"/>
+                  <att name="portType" value="ns1:poInfoPT"/>
+                  <att name="operation" value="getInfo"/>
+                  <att name="createInstance" value="true"/>
+                  <att name="variable" value="poInfoRequestMessage"/>
+                  <att name="fromParts" value="0"/>
+               </node>
+               <att>
+                  <graph id="27" name="IF">
+                     <att name="objectId" value="118126485478103583"/>
+                     <att name="size" value="DIM {520,453}"/>
+                     <att>
+                        <graph id="28" name="ELSE_IF">
+                           <att name="IF_EXPRESSION" value="$poInfoRequestMessage.payload/ns1:par = 'doc'"/>
+                           <att name="IF_EXPR_LANG" value="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"/>
+                           <att name="objectId" value="118126485478103585"/>
+                           <att name="size" value="DIM {160,381}"/>
+                           <att>
+                              <graph id="29" name="SEQUENCE">
+                                 <att name="objectId" value="118126486928103615"/>
+                                 <att name="location" value="LOC {33,23}"/>
+                                 <att name="size" value="DIM {120,315}"/>
+                                 <att>
+                                    <graph id="30" name="ASSIGN">
+                                       <att name="objectId" value="118126501165603847"/>
+                                       <att name="size" value="DIM {104,56}"/>
+                                       <att name="copy" value="1"/>
+                                       <att name="validateVars" value="false"/>
+                                       <node id="31" name="ASSIGN_COPY">
+                                          <att name="fromVariable" value="poInfoRequestMessage"/>
+                                          <att name="fromPart" value="payload"/>
+                                          <att name="fromQuery" value="ns1:pono"/>
+                                          <att name="objectId" value="118126588732804911"/>
+                                          <att name="toVariable" value="getOrderDocInput"/>
+                                          <att name="toPart" value="pono"/>
+                                          <att name="ignoreMissingFromData" value="false"/>
+                                       </node>
+                                    </graph>
+                                 </att>
+                                 <node id="32" name="INVOKE">
+                                    <att name="objectId" value="118126491987503673"/>
+                                    <att name="location" value="LOC {24,15}"/>
+                                    <att name="size" value="DIM {106,56}"/>
+                                    <att name="text" value="Invoke getOrderDoc"/>
+                                    <att name="partnerLink" value="poDocLT"/>
+                                    <att name="portType" value="ns2:poOrderDocServicePortType"/>
+                                    <att name="operation" value="getOrderDoc"/>
+                                    <att name="inputVariable" value="getOrderDocInput"/>
+                                    <att name="outputVariable" value="getOrderDocOutput"/>
+                                    <att name="fromParts" value="0"/>
+                                    <att name="toParts" value="0"/>
+                                 </node>
+                                 <att>
+                                    <graph id="33" name="ASSIGN">
+                                       <att name="objectId" value="118126501585903945"/>
+                                       <att name="size" value="DIM {104,56}"/>
+                                       <att name="copy" value="1"/>
+                                       <att name="validateVars" value="false"/>
+                                       <node id="34" name="ASSIGN_COPY">
+                                          <att name="fromVariable" value="getOrderDocOutput"/>
+                                          <att name="fromPart" value="doc"/>
+                                          <att name="objectId" value="118126597490604939"/>
+                                          <att name="toVariable" value="poInfoResponseMessage"/>
+                                          <att name="toPart" value="payload"/>
+                                          <att name="ignoreMissingFromData" value="false"/>
+                                       </node>
+                                    </graph>
+                                 </att>
+                              </graph>
+                           </att>
+                        </graph>
+                     </att>
+                     <att>
+                        <graph id="35" name="ELSE_IF">
+                           <att name="IF_EXPRESSION" value="$poInfoRequestMessage.payload/ns1:par = 'status'"/>
+                           <att name="IF_EXPR_LANG" value="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"/>
+                           <att name="objectId" value="118126503881204043"/>
+                           <att name="size" value="DIM {170,385}"/>
+                           <att>
+                              <graph id="36" name="SEQUENCE">
+                                 <att name="objectId" value="118126507001504109"/>
+                                 <att name="location" value="LOC {34,27}"/>
+                                 <att name="size" value="DIM {120,315}"/>
+                                 <att>
+                                    <graph id="37" name="ASSIGN">
+                                       <att name="objectId" value="118126524457804465"/>
+                                       <att name="size" value="DIM {104,56}"/>
+                                       <att name="copy" value="1"/>
+                                       <att name="validateVars" value="false"/>
+                                       <node id="38" name="ASSIGN_COPY">
+                                          <att name="fromVariable" value="poInfoRequestMessage"/>
+                                          <att name="fromPart" value="payload"/>
+                                          <att name="fromQuery" value="ns1:pono"/>
+                                          <att name="objectId" value="118126603046804967"/>
+                                          <att name="toVariable" value="getOrderStatusInput"/>
+                                          <att name="toPart" value="pono"/>
+                                          <att name="ignoreMissingFromData" value="false"/>
+                                       </node>
+                                    </graph>
+                                 </att>
+                                 <node id="39" name="INVOKE">
+                                    <att name="objectId" value="118126512325004207"/>
+                                    <att name="location" value="LOC {24,13}"/>
+                                    <att name="size" value="DIM {106,56}"/>
+                                    <att name="text" value="Invoke getOrderStatus"/>
+                                    <att name="partnerLink" value="poStatusLT"/>
+                                    <att name="portType" value="ns3:poOrderStatusServicePortType"/>
+                                    <att name="operation" value="getOrderStatus"/>
+                                    <att name="inputVariable" value="getOrderStatusInput"/>
+                                    <att name="outputVariable" value="getOrderStatusOutput"/>
+                                    <att name="fromParts" value="0"/>
+                                    <att name="toParts" value="0"/>
+                                 </node>
+                                 <att>
+                                    <graph id="40" name="ASSIGN">
+                                       <att name="objectId" value="118126524818704539"/>
+                                       <att name="size" value="DIM {104,56}"/>
+                                       <att name="copy" value="1"/>
+                                       <att name="validateVars" value="false"/>
+                                       <node id="41" name="ASSIGN_COPY">
+                                          <att name="fromVariable" value="getOrderStatusOutput"/>
+                                          <att name="fromPart" value="status"/>
+                                          <att name="objectId" value="118127353275005963"/>
+                                          <att name="toVariable" value="poInfoResponseMessage"/>
+                                          <att name="toPart" value="payload"/>
+                                          <att name="ignoreMissingFromData" value="false"/>
+                                       </node>
+                                    </graph>
+                                 </att>
+                              </graph>
+                           </att>
+                        </graph>
+                     </att>
+                     <att>
+                        <graph id="42" name="ELSE">
+                           <att name="objectId" value="118126536109304685"/>
+                           <att name="size" value="DIM {150,129}"/>
+                           <att>
+                              <graph id="43" name="ASSIGN">
+                                 <att name="objectId" value="118126537443704783"/>
+                                 <att name="location" value="LOC {31,30}"/>
+                                 <att name="size" value="DIM {104,56}"/>
+                                 <att name="copy" value="1"/>
+                                 <att name="validateVars" value="false"/>
+                                 <node id="44" name="ASSIGN_COPY">
+                                    <att name="fromLiteral" value="Wrong input parameter. Should be either doc or status!"/>
+                                    <att name="objectId" value="118126622101505023"/>
+                                    <att name="toVariable" value="poInfoResponseMessage"/>
+                                    <att name="toPart" value="payload"/>
+                                    <att name="ignoreMissingFromData" value="false"/>
+                                 </node>
+                              </graph>
+                           </att>
+                        </graph>
+                     </att>
+                  </graph>
+               </att>
+               <node id="45" name="REPLY">
+                  <att name="objectId" value="118126478815603395"/>
+                  <att name="size" value="DIM {100,56}"/>
+                  <att name="text" value="Reply getInfo"/>
+                  <att name="partnerLink" value="poInfoLT"/>
+                  <att name="portType" value="ns1:poInfoPT"/>
+                  <att name="operation" value="getInfo"/>
+                  <att name="variable" value="poInfoResponseMessage"/>
+                  <att name="toParts" value="0"/>
+               </node>
+            </graph>
+         </att>
+      </graph>
+   </att>
+   <node id="46" name="SCOPE_FAULTHANDLER"/>
+   <node id="47" name="SCOPE_EVENTHANDLER"/>
+</graph>

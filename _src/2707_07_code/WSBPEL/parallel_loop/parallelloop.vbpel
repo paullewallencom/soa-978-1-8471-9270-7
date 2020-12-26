@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph id="0" name="PROCESS">
+   <att name="processName" value="parallelloop"/>
+   <att name="targetNamespace" value="http://parallelloop"/>
+   <att name="enableInstanceCompensation" value="false"/>
+   <att name="exitStandardFault" value="false"/>
+   <att name="disableSelectionFailure" value="false"/>
+   <att name="createXPath" value="false"/>
+   <att name="modelVersion" value="3"/>
+   <att name="processNamespace" value="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+   <att name="objectId" value="118247479625006423"/>
+   <node id="1" name="EXTENSION_CONTAINER">
+      <att name="ExtensionCount" value="0"/>
+      <att name="BPELDocumentation" value=""/>
+   </node>
+   <att>
+      <graph id="2" name="IMPORTS">
+         <att name="ImportCount" value="2"/>
+         <node id="3" name="IMPORT">
+            <att name="ImportLocation" value="wsdl/parallelloop.wsdl;http://localhost:8081/active-bpel/services/parallel_loop;http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="ImportNamespace" value="http://localhost:8081/active-bpel/services/parallel_loop"/>
+            <att name="ImportType" value="http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="objectId" value="118247531042106573"/>
+         </node>
+         <node id="4" name="IMPORT">
+            <att name="ImportLocation" value="http://localhost/WebServices/wsdl/orderProcessing.wsdl;http://localhost/WebServices/wsdl/orderProcessing;http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="ImportNamespace" value="http://localhost/WebServices/wsdl/orderProcessing"/>
+            <att name="ImportType" value="http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="objectId" value="118247550840606801"/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="5" name="NAMESPACES">
+         <att name="NamespaceCount" value="5"/>
+         <node id="6" name="NAMESPACE">
+            <att name="Prefix" value="xsd"/>
+            <att name="Namespace" value="http://www.w3.org/2001/XMLSchema"/>
+            <att name="objectId" value="118247479625006449"/>
+         </node>
+         <node id="7" name="NAMESPACE">
+            <att name="Prefix" value="bpel"/>
+            <att name="Namespace" value="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+            <att name="objectId" value="118247479625006451"/>
+         </node>
+         <node id="8" name="NAMESPACE">
+            <att name="Prefix" value="ns1"/>
+            <att name="Namespace" value="http://localhost:8081/active-bpel/services/parallel_loop"/>
+            <att name="objectId" value="118247531042106571"/>
+         </node>
+         <node id="9" name="NAMESPACE">
+            <att name="Prefix" value="ns2"/>
+            <att name="Namespace" value="http://localhost/WebServices/wsdl/orderProcessing"/>
+            <att name="objectId" value="118247550840606799"/>
+         </node>
+         <node id="10" name="NAMESPACE">
+            <att name="Prefix" value="ns"/>
+            <att name="Namespace" value="http://localhost/XSD/po/"/>
+            <att name="objectId" value="118247823351507901"/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="11" name="PARTNER_LINKS">
+         <att name="PartnerLinkCount" value="2"/>
+         <node id="12" name="PARTNER_LINK">
+            <att name="PartnerLinkName" value="loopProcessLT"/>
+            <att name="PartnerLinkType" value="ns1:loopProcessLT"/>
+            <att name="MyRole" value="loopProcessRole"/>
+            <att name="visible" value="false,false,false,false,false,"/>
+            <att name="objectId" value="118247531037506551"/>
+            <att name="InitializePartnerRole" value=""/>
+         </node>
+         <node id="13" name="PARTNER_LINK">
+            <att name="PartnerLinkName" value="orderProcessingLT"/>
+            <att name="PartnerLinkType" value="ns1:orderProcessingLT"/>
+            <att name="PartnerRole" value="orderProcessingRole"/>
+            <att name="visible" value="false,false,false,false,false,"/>
+            <att name="objectId" value="118247550840606783"/>
+            <att name="InitializePartnerRole" value=""/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="14" name="VARIABLE_CONTAINERS">
+         <att name="VariableCount" value="2"/>
+         <node id="15" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="loopProcessRequestMessage"/>
+            <att name="VariableSpecification" value="MessageType=ns1:loopProcessRequestMessage"/>
+            <att name="objectId" value="118247531037506563"/>
+         </node>
+         <node id="16" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="loopProcessResponseMessage"/>
+            <att name="VariableSpecification" value="MessageType=ns1:loopProcessResponseMessage"/>
+            <att name="objectId" value="118247531040606565"/>
+         </node>
+      </graph>
+   </att>
+   <node id="17" name="CORRELATION_CONTAINERS">
+      <att name="CorrSetCount" value="0"/>
+   </node>
+   <att>
+      <graph id="18" name="SCOPE_ACTIVITY">
+         <att name="text" value="Process Activities"/>
+         <att name="backgroundColor" value="RGB {192,192,192}"/>
+         <att>
+            <graph id="19" name="SEQUENCE">
+               <att name="objectId" value="118247531551506643"/>
+               <att name="location" value="LOC {45,65}"/>
+               <att name="size" value="DIM {200,746}"/>
+               <node id="20" name="RECEIVE">
+                  <att name="objectId" value="118247780450007305"/>
+                  <att name="size" value="DIM {111,56}"/>
+                  <att name="text" value="Receive processOrder"/>
+                  <att name="partnerLink" value="loopProcessLT"/>
+                  <att name="portType" value="ns1:loopProcessPT"/>
+                  <att name="operation" value="processOrder"/>
+                  <att name="createInstance" value="true"/>
+                  <att name="variable" value="loopProcessRequestMessage"/>
+                  <att name="fromParts" value="0"/>
+               </node>
+               <att>
+                  <graph id="21" name="FOR_EACH">
+                     <att name="objectId" value="118247536171806737"/>
+                     <att name="size" value="DIM {180,391}"/>
+                     <att name="counterName" value="mycounter"/>
+                     <att name="parallelFlag" value="true"/>
+                     <att name="startExpression" value="'1'"/>
+                     <att name="finalExpression" value="count($loopProcessRequestMessage.order/ns:items/ns:item)"/>
+                     <att name="finalExpressionLang" value="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"/>
+                     <att>
+                        <graph id="22" name="SCOPE">
+                           <att name="objectId" value="118247536171806739"/>
+                           <att name="size" value="DIM {170,330}"/>
+                           <att name="exitStandardFaultScope" value=""/>
+                           <att name="showTerminationHandler" value="false"/>
+                           <att>
+                              <graph id="23" name="SCOPE_ACTIVITY">
+                                 <att name="objectId" value="118247536171806747"/>
+                                 <att name="backgroundColor" value="RGB {192,192,192}"/>
+                                 <att name="size" value="DIM {140,262}"/>
+                                 <att>
+                                    <graph id="24" name="SEQUENCE">
+                                       <att name="objectId" value="118248022748408123"/>
+                                       <att name="location" value="LOC {10,0}"/>
+                                       <att name="size" value="DIM {120,219}"/>
+                                       <att>
+                                          <graph id="25" name="ASSIGN">
+                                             <att name="objectId" value="118248024578108257"/>
+                                             <att name="size" value="DIM {104,56}"/>
+                                             <att name="copy" value="2"/>
+                                             <att name="validateVars" value="false"/>
+                                             <node id="26" name="ASSIGN_COPY">
+                                                <att name="fromVariable" value="loopProcessRequestMessage"/>
+                                                <att name="fromPart" value="order"/>
+                                                <att name="fromQuery" value="ns:items/ns:item[$mycounter]/ns:partId"/>
+                                                <att name="objectId" value="118253129637500313"/>
+                                                <att name="toVariable" value="orderProcessingInput"/>
+                                                <att name="toPart" value="partId"/>
+                                                <att name="ignoreMissingFromData" value="false"/>
+                                             </node>
+                                             <node id="27" name="ASSIGN_COPY">
+                                                <att name="fromVariable" value="loopProcessRequestMessage"/>
+                                                <att name="fromPart" value="order"/>
+                                                <att name="fromQuery" value="ns:items/ns:item[$mycounter]/ns:quantity"/>
+                                                <att name="objectId" value="118253135340600317"/>
+                                                <att name="toVariable" value="orderProcessingInput"/>
+                                                <att name="toPart" value="quantity"/>
+                                                <att name="ignoreMissingFromData" value="false"/>
+                                             </node>
+                                          </graph>
+                                       </att>
+                                       <node id="28" name="INVOKE">
+                                          <att name="objectId" value="118247550840606797"/>
+                                          <att name="size" value="DIM {106,56}"/>
+                                          <att name="text" value="Invoke startProcessing"/>
+                                          <att name="partnerLink" value="orderProcessingLT"/>
+                                          <att name="portType" value="ns2:orderProcessingPortType"/>
+                                          <att name="operation" value="startProcessing"/>
+                                          <att name="inputVariable" value="orderProcessingInput"/>
+                                          <att name="fromParts" value="0"/>
+                                          <att name="toParts" value="0"/>
+                                       </node>
+                                    </graph>
+                                 </att>
+                              </graph>
+                           </att>
+                           <att>
+                              <graph id="29" name="VARIABLE_CONTAINERS">
+                                 <att name="VariableCount" value="2"/>
+                                 <node id="30" name="VARIABLE_CONTAINER">
+                                    <att name="VariableName" value="orderProcessingInput"/>
+                                    <att name="VariableSpecification" value="MessageType=ns2:orderProcessingInput"/>
+                                    <att name="objectId" value="118253402173401260"/>
+                                 </node>
+                              </graph>
+                           </att>
+                           <node id="31" name="CORRELATION_CONTAINERS">
+                              <att name="CorrSetCount" value="0"/>
+                           </node>
+                           <node id="32" name="PARTNER_LINKS">
+                              <att name="PartnerLinkCount" value="0"/>
+                           </node>
+                           <node id="33" name="SCOPE_FAULTHANDLER">
+                              <att name="objectId" value="118247536171806751"/>
+                           </node>
+                           <node id="34" name="SCOPE_EVENTHANDLER">
+                              <att name="objectId" value="118247536171806753"/>
+                           </node>
+                           <node id="35" name="SCOPE_TERMINATIONHANDLER">
+                              <att name="objectId" value="118247536171806755"/>
+                              <att name="backgroundColor" value="RGB {192,192,192}"/>
+                           </node>
+                           <node id="36" name="SCOPE_COMPENSATOR">
+                              <att name="objectId" value="118247536171806749"/>
+                              <att name="backgroundColor" value="RGB {192,192,192}"/>
+                           </node>
+                        </graph>
+                     </att>
+                  </graph>
+               </att>
+               <att>
+                  <graph id="37" name="ASSIGN">
+                     <att name="objectId" value="118248026750008463"/>
+                     <att name="size" value="DIM {104,56}"/>
+                     <att name="copy" value="1"/>
+                     <att name="validateVars" value="false"/>
+                     <node id="38" name="ASSIGN_COPY">
+                        <att name="fromLiteral" value="Order processing completed successfully!"/>
+                        <att name="objectId" value="118248223045308747"/>
+                        <att name="toVariable" value="loopProcessResponseMessage"/>
+                        <att name="toPart" value="payload"/>
+                        <att name="ignoreMissingFromData" value="false"/>
+                     </node>
+                  </graph>
+               </att>
+               <node id="39" name="REPLY">
+                  <att name="objectId" value="118247780450007307"/>
+                  <att name="size" value="DIM {100,56}"/>
+                  <att name="text" value="Reply processOrder"/>
+                  <att name="partnerLink" value="loopProcessLT"/>
+                  <att name="portType" value="ns1:loopProcessPT"/>
+                  <att name="operation" value="processOrder"/>
+                  <att name="variable" value="loopProcessResponseMessage"/>
+                  <att name="toParts" value="0"/>
+               </node>
+            </graph>
+         </att>
+      </graph>
+   </att>
+   <node id="40" name="SCOPE_FAULTHANDLER"/>
+   <node id="41" name="SCOPE_EVENTHANDLER"/>
+</graph>

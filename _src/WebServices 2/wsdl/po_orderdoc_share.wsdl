@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name ="poOrderDocService"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             targetNamespace="http://localhost/WebServices/wsdl/poOrderDoc">
+    <message name="getOrderDocInput">
+        <part name="pono" element="xsd:string"/>
+    </message>
+    <message name="getOrderDocOutput">
+        <part name="body" element="xsd:string"/>
+    </message>
+    <portType name="poOrderDocServicePortType">
+        <operation name="getOrderDoc">
+           <input message="tns:getOrderDocInput"/>
+           <output message="tns:getOrderDocOutput"/>
+        </operation>
+    </portType>
+    <binding name="poOrderDocServiceBinding" type="tns:poOrderDocServicePortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getOrderDoc">
+           <soap:operation soapAction="http://localhost/WebServices/ch4/getOrderDoc"/>
+           <input>
+               <soap:body use="literal"/>
+           </input>
+           <output>
+               <soap:body use="literal"/>
+           </output>
+        </operation>
+    </binding>
+    <service name="poOrderDocService">
+        <port name="poOrderDocServicePort" binding="tns:poOrderDocServiceBinding">
+           <soap:address location="http://localhost/WebServices/ch4/SOAPServer_orderdoc_share.php"/>
+        </port>
+    </service>
+</definitions>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BPEL Process Definition
+Edited using ActiveBPEL(tm) Designer Version 3.0.0 (http://www.active-endpoints.com)
+-->
+<bpel:process xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://localhost:8081/active-bpel/services/check_concur.wsdl" xmlns:ns2="http://localhost/WebServices/wsdl/thread1" xmlns:ns3="http://localhost/WebServices/wsdl/thread2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="checkconcur" suppressJoinFailure="yes" targetNamespace="http://checkconcur">
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="wsdl/checkconcur.wsdl" namespace="http://localhost:8081/active-bpel/services/check_concur.wsdl"/>
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="http://localhost/WebServices/wsdl/thread1.wsdl" namespace="http://localhost/WebServices/wsdl/thread1"/>
+   <bpel:import importType="http://schemas.xmlsoap.org/wsdl/" location="http://localhost/WebServices/wsdl/thread2.wsdl" namespace="http://localhost/WebServices/wsdl/thread2"/>
+   <bpel:partnerLinks>
+      <bpel:partnerLink myRole="checkconcurRole" name="checkconcurLT" partnerLinkType="ns1:checkconcurLT"/>
+      <bpel:partnerLink name="thread1LT" partnerLinkType="ns1:thread1LT" partnerRole="thread1Role"/>
+      <bpel:partnerLink name="thread2LT" partnerLinkType="ns1:thread2LT" partnerRole="thread2Role"/>
+   </bpel:partnerLinks>
+   <bpel:variables>
+      <bpel:variable messageType="ns1:checkconcurRequestMessage" name="checkconcurRequestMessage"/>
+      <bpel:variable messageType="ns1:checkconcurResponseMessage" name="checkconcurResponseMessage"/>
+      <bpel:variable messageType="ns2:thread1Input" name="thread1Input"/>
+      <bpel:variable messageType="ns3:thread2Input" name="thread2Input"/>
+   </bpel:variables>
+   <bpel:sequence>
+      <bpel:receive createInstance="yes" operation="getRslt" partnerLink="checkconcurLT" portType="ns1:checkconcurPT" variable="checkconcurRequestMessage"/>
+      <bpel:assign>
+         <bpel:copy>
+            <bpel:from part="payload" variable="checkconcurRequestMessage"/>
+            <bpel:to part="payload" variable="thread1Input"/>
+         </bpel:copy>
+      </bpel:assign>
+      <bpel:assign>
+         <bpel:copy>
+            <bpel:from part="payload" variable="checkconcurRequestMessage"/>
+            <bpel:to part="payload" variable="thread2Input"/>
+         </bpel:copy>
+      </bpel:assign>
+      <bpel:flow>
+         <bpel:invoke inputVariable="thread1Input" operation="startThread1" partnerLink="thread1LT" portType="ns2:thread1PortType"/>
+         <bpel:invoke inputVariable="thread2Input" operation="startThread2" partnerLink="thread2LT" portType="ns3:thread2PortType"/>
+      </bpel:flow>
+      <bpel:assign>
+         <bpel:copy>
+            <bpel:from>
+               <bpel:literal>Two threads completed successfully!</bpel:literal>
+            </bpel:from>
+            <bpel:to part="payload" variable="checkconcurResponseMessage"/>
+         </bpel:copy>
+      </bpel:assign>
+      <bpel:reply operation="getRslt" partnerLink="checkconcurLT" portType="ns1:checkconcurPT" variable="checkconcurResponseMessage"/>
+   </bpel:sequence>
+</bpel:process>

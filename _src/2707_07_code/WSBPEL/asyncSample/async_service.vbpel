@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph id="0" name="PROCESS">
+   <att name="processName" value="async_service"/>
+   <att name="targetNamespace" value="http://async_service"/>
+   <att name="enableInstanceCompensation" value="false"/>
+   <att name="exitStandardFault" value="false"/>
+   <att name="disableSelectionFailure" value="false"/>
+   <att name="createXPath" value="false"/>
+   <att name="modelVersion" value="3"/>
+   <att name="processNamespace" value="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+   <att name="objectId" value="118296440010900635"/>
+   <node id="1" name="EXTENSION_CONTAINER">
+      <att name="ExtensionCount" value="0"/>
+      <att name="BPELDocumentation" value=""/>
+   </node>
+   <att>
+      <graph id="2" name="IMPORTS">
+         <att name="ImportCount" value="2"/>
+         <node id="3" name="IMPORT">
+            <att name="ImportLocation" value="async_service.wsdl;http://localhost:8081/active-bpel/services/async_service.wsdl;http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="ImportNamespace" value="http://localhost:8081/active-bpel/services/async_service.wsdl"/>
+            <att name="ImportType" value="http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="objectId" value="118296440010900661"/>
+         </node>
+         <node id="4" name="IMPORT">
+            <att name="ImportLocation" value="async_called_service.wsdl;http://localhost:8081/active-bpel/services/async_called_service.wsdl;http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="ImportNamespace" value="http://localhost:8081/active-bpel/services/async_called_service.wsdl"/>
+            <att name="ImportType" value="http://schemas.xmlsoap.org/wsdl/"/>
+            <att name="objectId" value="118296440010900663"/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="5" name="NAMESPACES">
+         <att name="NamespaceCount" value="4"/>
+         <node id="6" name="NAMESPACE">
+            <att name="Prefix" value="ns1"/>
+            <att name="Namespace" value="http://localhost:8081/active-bpel/services/async_service.wsdl"/>
+            <att name="objectId" value="118296440010900665"/>
+         </node>
+         <node id="7" name="NAMESPACE">
+            <att name="Prefix" value="xsd"/>
+            <att name="Namespace" value="http://www.w3.org/2001/XMLSchema"/>
+            <att name="objectId" value="118296440010900667"/>
+         </node>
+         <node id="8" name="NAMESPACE">
+            <att name="Prefix" value="ns2"/>
+            <att name="Namespace" value="http://localhost:8081/active-bpel/services/async_called_service.wsdl"/>
+            <att name="objectId" value="118296440010900669"/>
+         </node>
+         <node id="9" name="NAMESPACE">
+            <att name="Prefix" value="bpel"/>
+            <att name="Namespace" value="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+            <att name="objectId" value="118296440010900671"/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="10" name="PARTNER_LINKS">
+         <att name="PartnerLinkCount" value="2"/>
+         <node id="11" name="PARTNER_LINK">
+            <att name="PartnerLinkName" value="AsyncCallerPLT"/>
+            <att name="PartnerLinkType" value="ns1:AsyncCallerPLT"/>
+            <att name="MyRole" value="AsyncCallerRole"/>
+            <att name="visible" value="false,false,false,false,false,"/>
+            <att name="objectId" value="118296440010900673"/>
+            <att name="InitializePartnerRole" value=""/>
+         </node>
+         <node id="12" name="PARTNER_LINK">
+            <att name="PartnerLinkName" value="asyncRequester"/>
+            <att name="PartnerLinkType" value="ns1:asyncRequester"/>
+            <att name="PartnerRole" value="asyncProvider"/>
+            <att name="MyRole" value="asyncReplyReceiver"/>
+            <att name="visible" value="false,false,false,false,false,"/>
+            <att name="objectId" value="118296440010900685"/>
+            <att name="InitializePartnerRole" value=""/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="13" name="VARIABLE_CONTAINERS">
+         <att name="VariableCount" value="3"/>
+         <node id="14" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="asyncRequestMessage"/>
+            <att name="VariableSpecification" value="MessageType=ns1:asyncRequestMessage"/>
+            <att name="objectId" value="118296440012500697"/>
+         </node>
+         <node id="15" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="asyncResponseMessage"/>
+            <att name="VariableSpecification" value="MessageType=ns1:asyncResponseMessage"/>
+            <att name="objectId" value="118296440012500699"/>
+         </node>
+         <node id="16" name="VARIABLE_CONTAINER">
+            <att name="VariableName" value="initiateRequestMessage"/>
+            <att name="VariableSpecification" value="MessageType=ns2:initiateRequestMessage"/>
+            <att name="objectId" value="118296440012500701"/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="17" name="CORRELATION_CONTAINERS">
+         <att name="CorrSetCount" value="1"/>
+         <node id="18" name="CORRELATION_CONTAINER">
+            <att name="SetName" value="CS1"/>
+            <att name="SetProperties" value="asyncCorrelationData=http://localhost:8081/active-bpel/services/async_service.wsdl"/>
+            <att name="objectId" value="118296440012500703"/>
+         </node>
+      </graph>
+   </att>
+   <att>
+      <graph id="19" name="SCOPE_ACTIVITY">
+         <att name="text" value="Process Activities"/>
+         <att name="backgroundColor" value="RGB {192,192,192}"/>
+         <att>
+            <graph id="20" name="SEQUENCE">
+               <att name="objectId" value="118296440012500705"/>
+               <att name="location" value="LOC {5,5}"/>
+               <att name="size" value="DIM {130,547}"/>
+               <att name="gap" value="50"/>
+               <node id="21" name="RECEIVE">
+                  <att name="objectId" value="118296440012500707"/>
+                  <att name="size" value="DIM {111,56}"/>
+                  <att name="partnerLink" value="AsyncCallerPLT"/>
+                  <att name="portType" value="ns1:AsyncCallerPT"/>
+                  <att name="operation" value="echo"/>
+                  <att name="createInstance" value="true"/>
+                  <att name="variable" value="asyncRequestMessage"/>
+                  <att name="fromParts" value="0"/>
+               </node>
+               <att>
+                  <graph id="22" name="ASSIGN">
+                     <att name="objectId" value="118296440014000709"/>
+                     <att name="size" value="DIM {104,56}"/>
+                     <att name="copy" value="1"/>
+                     <att name="validateVars" value="false"/>
+                     <node id="23" name="ASSIGN_COPY">
+                        <att name="fromVariable" value="asyncRequestMessage"/>
+                        <att name="fromPart" value="payload"/>
+                        <att name="objectId" value="118296440014000711"/>
+                        <att name="toVariable" value="initiateRequestMessage"/>
+                        <att name="toPart" value="payload"/>
+                        <att name="ignoreMissingFromData" value="false"/>
+                     </node>
+                  </graph>
+               </att>
+               <node id="24" name="INVOKE">
+                  <att name="objectId" value="118296440014000713"/>
+                  <att name="size" value="DIM {106,56}"/>
+                  <att name="partnerLink" value="asyncRequester"/>
+                  <att name="portType" value="ns2:AsyncCalledServicePT"/>
+                  <att name="operation" value="initiateAsync"/>
+                  <att name="correlations" value="CS1,yes,request#true"/>
+                  <att name="inputVariable" value="initiateRequestMessage"/>
+                  <att name="fromParts" value="0"/>
+                  <att name="toParts" value="0"/>
+               </node>
+               <node id="25" name="RECEIVE">
+                  <att name="objectId" value="118296440014000715"/>
+                  <att name="size" value="DIM {111,56}"/>
+                  <att name="partnerLink" value="asyncRequester"/>
+                  <att name="portType" value="ns1:asyncCallbackPT"/>
+                  <att name="operation" value="onResult"/>
+                  <att name="correlations" value="CS1,no#false"/>
+                  <att name="variable" value="asyncResponseMessage"/>
+                  <att name="fromParts" value="0"/>
+               </node>
+               <node id="26" name="REPLY">
+                  <att name="objectId" value="118296440014000717"/>
+                  <att name="size" value="DIM {100,56}"/>
+                  <att name="partnerLink" value="AsyncCallerPLT"/>
+                  <att name="portType" value="ns1:AsyncCallerPT"/>
+                  <att name="operation" value="echo"/>
+                  <att name="faultName" value=""/>
+                  <att name="variable" value="asyncResponseMessage"/>
+                  <att name="toParts" value="0"/>
+               </node>
+            </graph>
+         </att>
+      </graph>
+   </att>
+   <node id="27" name="SCOPE_FAULTHANDLER"/>
+   <node id="28" name="SCOPE_EVENTHANDLER"/>
+</graph>
